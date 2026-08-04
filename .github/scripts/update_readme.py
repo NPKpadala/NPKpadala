@@ -38,12 +38,14 @@ TIMEOUT = 20
 # Prefer a cheap /health path over a homepage: it makes the latency column mean
 # something and costs the origin nothing.
 ENDPOINTS: list[tuple[str, str]] = [
-    ("Portfolio", "https://npkpadala.com"),
-    ("Ops Monitor", "https://npkpadala.com/ops/health"),
-    # TODO: add once the public URLs are confirmed —
-    # ("PDFWala", "https://.../"),
-    # ("Invoice API", "https://....onrender.com/health"),
+    ("Portfolio Website", "https://npkpadala.com"),
+    ("PDFWala", "https://pdf.npkpadala.com/"),
 ]
+
+# Deliberately not probed:
+#   Ops Monitor  — owner's call; the /ops surface stays off the public board.
+#   Invoice API  — Render deployment not stabilised yet. Add it here when it is,
+#                  and note that Render hostnames are *.onrender.com.
 
 PROBE_TIMEOUT = 15        # Render free tiers cold-start slowly; 5s would false-alarm
 PROBE_ATTEMPTS = 2        # one retry before calling anything degraded

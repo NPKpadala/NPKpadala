@@ -163,8 +163,8 @@ How the pieces actually fit together — edge to storage, and the loop that watc
 
 | Service | Endpoint | Health | Latency |
 |:---|:---|:---|:---|
-| **Portfolio** | `npkpadala.com` | ⚪ `PENDING` | `—` |
-| **Ops Monitor** | `npkpadala.com/ops/health` | ⚪ `PENDING` | `—` |
+| **Portfolio Website** | `npkpadala.com` | ⚪ `PENDING` | `—` |
+| **PDFWala** | `pdf.npkpadala.com` | ⚪ `PENDING` | `—` |
 <!-- END_SECTION:telemetry -->
 
 <!-- LIVE STATUS (Upptime) — the table above is probed hourly from this repo and needs
@@ -179,10 +179,8 @@ How the pieces actually fit together — edge to storage, and the loop that watc
 
 | System | Status | Uptime (30d) | Response |
 |:---|:---|:---|:---|
-| **Portfolio** | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio/status.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio/uptime-30.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio/response-time.json&style=flat-square) |
-| **Ops Monitor** | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/ops-monitor/status.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/ops-monitor/uptime-30.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/ops-monitor/response-time.json&style=flat-square) |
+| **Portfolio Website** | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio-website/status.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio-website/uptime-30.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio-website/response-time.json&style=flat-square) |
 | **PDFWala** | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/pdfwala/status.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/pdfwala/uptime-30.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/pdfwala/response-time.json&style=flat-square) |
-| **Invoice API** | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/invoice-api/status.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/invoice-api/uptime-30.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/invoice-api/response-time.json&style=flat-square) |
 
 <sub>Probed every 5 minutes from GitHub Actions · <a href="https://npkpadala.github.io/upptime/">full history →</a></sub>
 
