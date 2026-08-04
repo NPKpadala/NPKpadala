@@ -14,24 +14,17 @@ sites:
   # The slug used in badge URLs is derived from `name`, lowercased and
   # hyphenated — "Invoice API" -> invoice-api. Keep names stable once live,
   # or the badges 404.
-  - name: Portfolio
+  - name: Portfolio Website
     url: https://npkpadala.com
 
-  - name: Ops Monitor
-    url: https://npkpadala.com/ops/health
-    # Unauthenticated liveness endpoint — returns {"ok":true} and no data.
-
-  # TODO: replace the two placeholders below with the real public URLs before
-  # the first run, or delete the entry. A site that never resolves shows a
-  # permanently red badge.
   - name: PDFWala
-    url: https://REPLACE-ME.example.com/
+    url: https://pdf.npkpadala.com/
 
-  - name: Invoice API
-    url: https://REPLACE-ME.onrender.com/health
-    # Render free instances sleep when idle; the first ping after a cold start
-    # can take 30s+. Either keep a paid instance, point this at a warmed
-    # endpoint, or expect amber response times.
+  # Deliberately not listed, matching .github/scripts/update_readme.py:
+  #   Ops Monitor — the /ops surface stays off the public board.
+  #   Invoice API — Render deployment not stabilised. Add it when it is; note
+  #                 Render hostnames are *.onrender.com, and free instances
+  #                 sleep when idle, so expect a slow first response.
 
 status-website:
   cname: # optional custom domain, e.g. status.npkpadala.com

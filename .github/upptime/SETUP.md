@@ -21,10 +21,16 @@ Budget ten minutes.
 Copy [`.upptimerc.yml`](./.upptimerc.yml) from this folder to the **root** of
 that new repo, then edit it:
 
-- Replace the two `REPLACE-ME` URLs (PDFWala, Invoice API) with the real public
-  endpoints, or delete those entries.
-- Prefer a cheap, unauthenticated health endpoint over a homepage — it makes
-  response-time graphs mean something.
+It ships with the two endpoints that are actually probed today — the portfolio
+and PDFWala — matching `ENDPOINTS` in `.github/scripts/update_readme.py`. Keep
+the two lists in step, or the hourly table and the badges will disagree about
+what is being watched.
+
+- Adding a service? Prefer a cheap, unauthenticated health endpoint over a
+  homepage — it makes the response-time graphs mean something.
+- The Invoice API is commented out in both files until its Render deployment
+  settles. Render hostnames are `*.onrender.com`, and free instances sleep when
+  idle, so the first probe after a cold start can take 30s+.
 
 ## 3. Add the token
 

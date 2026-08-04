@@ -19,6 +19,23 @@
 
 <br/>
 
+<!-- ============ OPS BANNER ============ -->
+<!-- START_SECTION:banner -->
+```console
+[ OPS TELEMETRY — npkpadala ]
+------------------------------------------------------------------------------
+HOST        : Oracle Cloud Infrastructure · Oracle Linux (aarch64)
+RUNTIME     : PM2 process manager · Docker · nginx reverse proxy
+DATA        : PostgreSQL (per-tenant) · Redis · Celery workers
+OBSERVE     : self-built Ops Monitor · 5s host+app polling · Telegram paging
+STATUS      : ⚪ NO PROBE DATA — awaiting next scheduled run
+LAST PROBE  : awaiting first run
+------------------------------------------------------------------------------
+```
+<!-- END_SECTION:banner -->
+
+<br/>
+
 <!-- ============ ABOUT ============ -->
 
 ## ⚡ About Me
@@ -62,13 +79,61 @@ $ whoami
 
 **☁️ Infrastructure & DevOps**
 
-<a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=docker,githubactions,git,github,grafana,cloudflare&theme=dark" alt="Docker · GitHub Actions · Git · GitHub · Grafana · Cloudflare"/></a>
+<a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=docker,githubactions,git,github&theme=dark" alt="Docker · GitHub Actions · Git · GitHub"/></a>
 <br/>
 <img src="https://img.shields.io/badge/Oracle%20Cloud%20Infrastructure-F80000?style=flat-square&logo=oracle&logoColor=white" alt="Oracle Cloud Infrastructure"/>
 <img src="https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=black" alt="Render"/>
 <img src="https://img.shields.io/badge/PM2-2B037A?style=flat-square&logo=pm2&logoColor=white" alt="PM2"/>
+<img src="https://img.shields.io/badge/Telegram%20Alerting-26A5E4?style=flat-square&logo=telegram&logoColor=white" alt="Telegram alerting"/>
 
 </div>
+
+<br/>
+
+<!-- ============ TOPOLOGY ============ -->
+
+## 📐 Production Topology
+
+How the pieces actually fit together — edge to storage, and the loop that watches all of it.
+
+```text
+                              ┌───────────────────────────┐
+                              │  EDGE / TLS TERMINATION   │
+                              │  nginx (Docker) · certbot │
+                              │  rate limits · /ops proxy │
+                              └─────────────┬─────────────┘
+                                            │
+        ┌───────────────────────────────────┼───────────────────────────────────┐
+        ▼                                   ▼                                   ▼
+┌────────────────────┐          ┌────────────────────────┐          ┌────────────────────┐
+│   API / APP TIER   │          │   ASYNC PROCESSING     │          │   MANAGED / PaaS   │
+│  FastAPI · Flask   │          │  Celery workers        │          │  Render-hosted     │
+│  Node.js · Gunicorn│─ enqueue▶│  Redis broker          │          │  services          │
+│  under PM2         │◀ result ─│  (PDFWala pipeline)    │          │  (Invoice API)     │
+└─────────┬──────────┘          └───────────┬────────────┘          └─────────┬──────────┘
+          │                                 │                                 │
+          └─────────────────┬───────────────┘                                 │
+                            ▼                                                 │
+                 ┌─────────────────────┐                                      │
+                 │    PERSISTENCE      │                                      │
+                 │ PostgreSQL per      │                                      │
+                 │ tenant · nightly    │                                      │
+                 │ pg_dump + verify    │                                      │
+                 └──────────┬──────────┘                                      │
+                            │                                                 │
+   ═════════════════════════╪═════════════════════════════════════════════════╪══════
+                            ▼            OBSERVABILITY LOOP                    ▼
+   ┌──────────────────────────────────────────────────────────────────────────────┐
+   │  collector  ──5s host+app · 30s deep · 4s logs──▶  ingest API  ──▶  Postgres  │
+   │      │ read-only, execFile only                        │                      │
+   │      └── pm2 · docker · psql · logs · TLS              ▼                      │
+   │                                            threshold eval → alerts → Telegram │
+   │                                                        │                      │
+   │                                          WebSocket ────┴──▶ live NOC dashboard│
+   └──────────────────────────────────────────────────────────────────────────────┘
+```
+
+<sub>The observability loop is <a href="https://github.com/NPKpadala/-ops-monitor">Ops Monitor</a> — built and operated in-house rather than bought.</sub>
 
 <br/>
 
@@ -89,8 +154,23 @@ $ whoami
 
 </div>
 
-<!-- LIVE STATUS — uncomment the block below once Upptime is set up.
-     Full instructions: .github/upptime/SETUP.md
+<br/>
+
+### 📡 Infrastructure Telemetry
+
+<!-- START_SECTION:telemetry -->
+> Awaiting the first probe — `.github/workflows/readme-activity.yml` fills this in hourly.
+
+| Service | Endpoint | Health | Latency |
+|:---|:---|:---|:---|
+| **Portfolio Website** | `npkpadala.com` | ⚪ `PENDING` | `—` |
+| **PDFWala** | `pdf.npkpadala.com` | ⚪ `PENDING` | `—` |
+<!-- END_SECTION:telemetry -->
+
+<!-- LIVE STATUS (Upptime) — the table above is probed hourly from this repo and needs
+     no extra setup. Upptime adds what a single hourly probe cannot: 5-minute
+     resolution, 90-day uptime history, a hosted status page and automatic incident
+     issues. Set it up with .github/upptime/SETUP.md, then uncomment this block.
      Kept commented so the profile never renders broken badge images.
 
 ### 🟢 Live System Status
@@ -99,10 +179,8 @@ $ whoami
 
 | System | Status | Uptime (30d) | Response |
 |:---|:---|:---|:---|
-| **Portfolio** | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio/status.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio/uptime-30.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio/response-time.json&style=flat-square) |
-| **Ops Monitor** | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/ops-monitor/status.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/ops-monitor/uptime-30.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/ops-monitor/response-time.json&style=flat-square) |
+| **Portfolio Website** | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio-website/status.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio-website/uptime-30.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/portfolio-website/response-time.json&style=flat-square) |
 | **PDFWala** | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/pdfwala/status.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/pdfwala/uptime-30.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/pdfwala/response-time.json&style=flat-square) |
-| **Invoice API** | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/invoice-api/status.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/invoice-api/uptime-30.json&style=flat-square) | ![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/NPKpadala/upptime/master/api/invoice-api/response-time.json&style=flat-square) |
 
 <sub>Probed every 5 minutes from GitHub Actions · <a href="https://npkpadala.github.io/upptime/">full history →</a></sub>
 
