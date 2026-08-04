@@ -1,0 +1,49 @@
+# Self-updating README: rewrites the marked sections in place and commits only
+# when the rendered output actually changed.
+name: Refresh README
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"   # every 6 hours
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/scripts/update_readme.py"
+      - ".github/workflows/readme-activity.yml"
+
+concurrency:
+  group: readme-refresh
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Render live sections
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_USER: ${{ github.repository_owner }}
+          # Optional — add the secret to light up the WakaTime block; absent is fine.
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+        run: python .github/scripts/update_readme.py
+
+      - name: Commit if changed
+        run: |
+          if [[ -z "$(git status --porcelain README.md)" ]]; then
+            echo "README unchanged — nothing to commit"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore(readme): refresh live activity feed [skip ci]"
+          git push
