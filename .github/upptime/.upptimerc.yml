@@ -1,0 +1,63 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Upptime config — this file does NOT belong in the profile repo at runtime.
+# Copy it to the ROOT of a new repo created from the upptime/upptime template
+# (see .github/upptime/SETUP.md), named `.upptimerc.yml`.
+#
+# Every URL below is checked from GitHub Actions on a schedule; results are
+# committed as JSON under api/<slug>/, which is what the README badges read.
+# ─────────────────────────────────────────────────────────────────────────────
+
+owner: NPKpadala
+repo: upptime
+
+sites:
+  # The slug used in badge URLs is derived from `name`, lowercased and
+  # hyphenated — "Invoice API" -> invoice-api. Keep names stable once live,
+  # or the badges 404.
+  - name: Portfolio
+    url: https://npkpadala.com
+
+  - name: Ops Monitor
+    url: https://npkpadala.com/ops/health
+    # Unauthenticated liveness endpoint — returns {"ok":true} and no data.
+
+  # TODO: replace the two placeholders below with the real public URLs before
+  # the first run, or delete the entry. A site that never resolves shows a
+  # permanently red badge.
+  - name: PDFWala
+    url: https://REPLACE-ME.example.com/
+
+  - name: Invoice API
+    url: https://REPLACE-ME.onrender.com/health
+    # Render free instances sleep when idle; the first ping after a cold start
+    # can take 30s+. Either keep a paid instance, point this at a warmed
+    # endpoint, or expect amber response times.
+
+status-website:
+  cname: # optional custom domain, e.g. status.npkpadala.com
+  name: NPKpadala Status
+  introTitle: "Live status of everything I run"
+  introMessage: >-
+    Uptime and response times for the production systems I build and operate,
+    measured every 5 minutes from GitHub Actions. Incidents open automatically
+    as issues in this repository.
+  navbar:
+    - title: Status
+      href: /
+    - title: GitHub
+      href: https://github.com/NPKpadala
+    - title: Portfolio
+      href: https://npkpadala.com
+
+assignees:
+  - NPKpadala
+
+# Optional tuning — uncomment to change the defaults.
+# workflowSchedule:
+#   graphs: "0 0 * * *"
+#   responseTime: "0 23 * * *"
+#   staticSite: "0 1 * * *"
+#   summary: "0 0 * * *"
+#   updateTemplate: "0 0 * * *"
+#   updates: "0 3 * * *"
+#   uptime: "*/5 * * * *"
