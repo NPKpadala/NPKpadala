@@ -204,16 +204,16 @@ How the pieces actually fit together — edge to storage, and the loop that watc
 ```console
 $ npk-ops --tail activity --user NPKpadala
 
- just now  pr      NPKpadala          #2 merged
- just now  pr      NPKpadala          #2 opened
-  28m ago  pr      NPKpadala          #1 merged
-  31m ago  pr      NPKpadala          #1 opened
-  34m ago  create  NPKpadala          branch claude/readme-hiring-mana…
+   1h ago  pr      NPKpadala          #2 merged
+   1h ago  pr      NPKpadala          #2 opened
+   2h ago  pr      NPKpadala          #1 merged
+   2h ago  pr      NPKpadala          #1 opened
+   2h ago  create  NPKpadala          branch claude/readme-hiring-mana…
    7d ago  create  -sudo-access-trac… branch main
    8d ago  pr      system_disk        #3 merged
    8d ago  pr      -ops-monitor       #1 merged
 
-# stream synced 2026-08-04 18:17 UTC · refreshed every 6h by GitHub Actions
+# stream synced 2026-08-04 20:02 UTC · refreshed every 6h by GitHub Actions
 ```
 <!-- END_SECTION:activity -->
 
