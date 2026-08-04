@@ -97,8 +97,19 @@ def ago(iso: str) -> str:
 
 
 def clip(text: str, width: int) -> str:
-    text = " ".join(text.split())
+    text = " ".join((text or "").split())
     return text if len(text) <= width else text[: width - 1] + "…"
+
+
+def tail(text: str | None, width: int) -> str:
+    """' · <clipped text>', or nothing at all when there is no text.
+
+    The public events feed does not always carry a title or commit message —
+    it omits them for some event types, and the first live run rendered rows
+    ending in a dangling '·'. No text means no separator.
+    """
+    clipped = clip(text or "", width)
+    return f" · {clipped}" if clipped else ""
 
 
 # ─── health probe ───────────────────────────────────────────────────────────
@@ -267,15 +278,16 @@ def describe(event: dict) -> str | None:
         if not commits:
             return None
         n = payload.get("size", len(commits))
-        msg = clip(commits[-1].get("message", "").split("\n")[0], 44)
-        return f"push    {repo} {n} commit{'s' if n != 1 else ''} · {msg}"
+        msg = commits[-1].get("message", "").split("\n")[0]
+        return f"push    {repo} {n} commit{'s' if n != 1 else ''}{tail(msg, 44)}"
     if kind == "PullRequestEvent":
-        pr = payload.get("pull_request", {})
+        pr = payload.get("pull_request") or {}
         action = "merged" if pr.get("merged") else payload.get("action", "")
-        return f"pr      {repo} #{pr.get('number')} {action} · {clip(pr.get('title', ''), 40)}"
+        number = pr.get("number") or payload.get("number") or "?"
+        return f"pr      {repo} #{number} {action}{tail(pr.get('title'), 40)}"
     if kind == "IssuesEvent":
-        issue = payload.get("issue", {})
-        return f"issue   {repo} #{issue.get('number')} {payload.get('action', '')} · {clip(issue.get('title', ''), 38)}"
+        issue = payload.get("issue") or {}
+        return f"issue   {repo} #{issue.get('number', '?')} {payload.get('action', '')}{tail(issue.get('title'), 38)}"
     if kind == "ReleaseEvent":
         return f"release {repo} {clip(payload.get('release', {}).get('tag_name', ''), 20)}"
     if kind == "CreateEvent":
