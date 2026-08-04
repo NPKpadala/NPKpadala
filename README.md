@@ -28,8 +28,8 @@ HOST        : Oracle Cloud Infrastructure · Oracle Linux (aarch64)
 RUNTIME     : PM2 process manager · Docker · nginx reverse proxy
 DATA        : PostgreSQL (per-tenant) · Redis · Celery workers
 OBSERVE     : self-built Ops Monitor · 5s host+app polling · Telegram paging
-STATUS      : ⚪ NO PROBE DATA — awaiting next scheduled run
-LAST PROBE  : awaiting first run
+STATUS      : 🟢 ALL 2 MONITORED SERVICES OPERATIONAL
+LAST PROBE  : 2026-08-04 18:17 UTC
 ------------------------------------------------------------------------------
 ```
 <!-- END_SECTION:banner -->
@@ -159,12 +159,15 @@ How the pieces actually fit together — edge to storage, and the loop that watc
 ### 📡 Infrastructure Telemetry
 
 <!-- START_SECTION:telemetry -->
-> Awaiting the first probe — `.github/workflows/readme-activity.yml` fills this in hourly.
+<!-- probe:2026-08-04T18:17:28Z|Portfolio Website=up,PDFWala=up -->
+> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-08-04 18:17 UTC`
 
 | Service | Endpoint | Health | Latency |
 |:---|:---|:---|:---|
-| **Portfolio Website** | `npkpadala.com` | ⚪ `PENDING` | `—` |
-| **PDFWala** | `pdf.npkpadala.com` | ⚪ `PENDING` | `—` |
+| **Portfolio Website** | `npkpadala.com` | 🟢 `OPERATIONAL` `200` | `1528 ms` |
+| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `1546 ms` |
+
+<sub>Two attempts before anything is called unreachable, and a run where <em>every</em> target fails is treated as a broken prober rather than a simultaneous outage. API-first hosts are judged on reachability, so a <code>404</code> at <code>/</code> reads green — the origin answered and routed. A <code>5xx</code> does not.</sub>
 <!-- END_SECTION:telemetry -->
 
 <!-- LIVE STATUS (Upptime) — the table above is probed hourly from this repo and needs
@@ -201,16 +204,16 @@ How the pieces actually fit together — edge to storage, and the loop that watc
 ```console
 $ npk-ops --tail activity --user NPKpadala
 
- just now  pr      NPKpadala          #1 merged · 
-   3m ago  pr      NPKpadala          #1 opened · 
+ just now  pr      NPKpadala          #2 merged
+ just now  pr      NPKpadala          #2 opened
+  28m ago  pr      NPKpadala          #1 merged
+  31m ago  pr      NPKpadala          #1 opened
+  34m ago  create  NPKpadala          branch claude/readme-hiring-mana…
    7d ago  create  -sudo-access-trac… branch main
-   8d ago  pr      system_disk        #3 merged · 
-   8d ago  pr      -ops-monitor       #1 merged · 
-   8d ago  pr      -ops-monitor       #1 opened · 
-   8d ago  create  -ops-monitor       branch claude/readme-hiring-mana…
-   8d ago  pr      system_disk        #3 opened · 
+   8d ago  pr      system_disk        #3 merged
+   8d ago  pr      -ops-monitor       #1 merged
 
-# stream synced 2026-08-04 17:49 UTC · refreshed every 6h by GitHub Actions
+# stream synced 2026-08-04 18:17 UTC · refreshed every 6h by GitHub Actions
 ```
 <!-- END_SECTION:activity -->
 
