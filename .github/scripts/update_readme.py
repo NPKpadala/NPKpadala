@@ -2,8 +2,10 @@
 """Inject live data into README.md between HTML comment markers.
 
 Sections written:
-  activity  — recent public GitHub activity, rendered as a terminal tail
-  waka      — top languages from WakaTime (skipped unless WAKATIME_API_KEY is set)
+  banner     — NOC-style header, status line driven by the live probe
+  telemetry  — health probe of the endpoints in ENDPOINTS
+  activity   — recent public GitHub activity, rendered as a terminal tail
+  waka       — top languages from WakaTime (skipped unless WAKATIME_API_KEY is set)
 
 Standard library only, so the workflow needs no pip install step. Every network
 call is best-effort: if an API is down the section keeps its previous content
@@ -17,9 +19,10 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 USER = os.environ.get("GH_USER", "NPKpadala")
 README = os.environ.get("README_PATH", "README.md")
@@ -28,6 +31,24 @@ WAKA_KEY = os.environ.get("WAKATIME_API_KEY", "")
 
 MAX_ROWS = 8
 TIMEOUT = 20
+
+# ─── probe targets ──────────────────────────────────────────────────────────
+# Only add endpoints that are public and expected to answer. A URL that never
+# resolves shows a permanent red row, which is worse than not listing it.
+# Prefer a cheap /health path over a homepage: it makes the latency column mean
+# something and costs the origin nothing.
+ENDPOINTS: list[tuple[str, str]] = [
+    ("Portfolio", "https://npkpadala.com"),
+    ("Ops Monitor", "https://npkpadala.com/ops/health"),
+    # TODO: add once the public URLs are confirmed —
+    # ("PDFWala", "https://.../"),
+    # ("Invoice API", "https://....onrender.com/health"),
+]
+
+PROBE_TIMEOUT = 15        # Render free tiers cold-start slowly; 5s would false-alarm
+PROBE_ATTEMPTS = 2        # one retry before calling anything degraded
+SLOW_MS = 3000            # above this, report amber rather than green
+STALE_HOURS = 6           # refresh the timestamp at most this often when nothing changed
 
 
 # ─── helpers ────────────────────────────────────────────────────────────────
@@ -68,6 +89,141 @@ def ago(iso: str) -> str:
 def clip(text: str, width: int) -> str:
     text = " ".join(text.split())
     return text if len(text) <= width else text[: width - 1] + "…"
+
+
+# ─── health probe ───────────────────────────────────────────────────────────
+
+def probe(url: str) -> tuple[str, int | None, int | None]:
+    """Return (state, http_code, latency_ms). state ∈ up | slow | warn | down."""
+    last_code = None
+    for attempt in range(PROBE_ATTEMPTS):
+        started = time.monotonic()
+        req = urllib.request.Request(url, headers={"User-Agent": f"{USER}-opscheck/1.0"})
+        try:
+            with urllib.request.urlopen(req, timeout=PROBE_TIMEOUT) as resp:
+                ms = int((time.monotonic() - started) * 1000)
+                code = resp.getcode()
+                if 200 <= code < 400:
+                    return ("slow" if ms > SLOW_MS else "up", code, ms)
+                return ("warn", code, ms)
+        except urllib.error.HTTPError as exc:
+            # A 4xx/5xx is a real answer from a live server — worth distinguishing
+            # from a connection that never completed.
+            last_code = exc.code
+            if attempt == PROBE_ATTEMPTS - 1:
+                return ("warn", exc.code, int((time.monotonic() - started) * 1000))
+        except Exception as exc:  # noqa: BLE001 — any transport failure is "down"
+            print(f"warn: probe {url} attempt {attempt + 1}: {exc}", file=sys.stderr)
+        if attempt < PROBE_ATTEMPTS - 1:
+            time.sleep(2)
+    return ("down", last_code, None)
+
+
+def probe_all() -> list[tuple[str, str, str, int | None, int | None]] | None:
+    """Probe every endpoint. Returns None if the prober itself looks broken.
+
+    If *every* target fails, the likely explanation is the runner's egress, not
+    a simultaneous outage of unrelated systems. Reporting that as a wall of red
+    would be worse than reporting nothing, so the caller leaves the section as-is.
+    """
+    if not ENDPOINTS:
+        return None
+    results = []
+    for name, url in ENDPOINTS:
+        state, code, ms = probe(url)
+        results.append((name, url, state, code, ms))
+        print(f"probe {name}: {state} code={code} ms={ms}", file=sys.stderr)
+    if all(r[2] == "down" for r in results):
+        print("warn: every probe failed — assuming prober fault, not outage", file=sys.stderr)
+        return None
+    return results
+
+
+BADGE = {
+    "up":   "🟢 `OPERATIONAL`",
+    "slow": "🟡 `SLOW`",
+    "warn": "🟡 `DEGRADED`",
+    "down": "🔴 `UNREACHABLE`",
+}
+
+
+def build_telemetry(results, current: str) -> str | None:
+    """Render the health table — but only when it would actually say something new.
+
+    The timestamp changes on every run, so writing unconditionally means an
+    hourly commit forever. Instead: commit immediately when a status flips, and
+    otherwise refresh the timestamp at most every STALE_HOURS.
+    """
+    if not results:
+        return None
+
+    signature = ",".join(f"{name}={state}" for name, _, state, _, _ in results)
+    previous = re.search(r"<!-- probe:([0-9T:\-]+Z)\|([^>]*) -->", current)
+    if previous and previous.group(2) == signature:
+        try:
+            when = datetime.strptime(previous.group(1), "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+            if datetime.now(timezone.utc) - when < timedelta(hours=STALE_HOURS):
+                print("note: telemetry unchanged and fresh — not rewriting", file=sys.stderr)
+                return None
+        except ValueError:
+            pass
+
+    now = datetime.now(timezone.utc)
+    rows = []
+    for name, url, state, code, ms in results:
+        shown = url.replace("https://", "")
+        latency = f"`{ms} ms`" if ms is not None else "`—`"
+        detail = f"`{code}`" if code else "`no answer`"
+        rows.append(f"| **{name}** | `{shown}` | {BADGE[state]} {detail} | {latency} |")
+
+    up = sum(1 for r in results if r[2] in ("up", "slow"))
+    return "\n".join(
+        [
+            f"<!-- probe:{now.strftime('%Y-%m-%dT%H:%M:%SZ')}|{signature} -->",
+            f"> Probed from a GitHub Actions runner · **{up}/{len(results)} operational** ·"
+            f" last check `{now.strftime('%Y-%m-%d %H:%M UTC')}`",
+            "",
+            "| Service | Endpoint | Health | Latency |",
+            "|:---|:---|:---|:---|",
+            *rows,
+            "",
+            "<sub>Two attempts before anything is called unreachable, and a run where"
+            " <em>every</em> target fails is treated as a broken prober rather than a"
+            " simultaneous outage.</sub>",
+        ]
+    )
+
+
+def build_banner(results) -> str | None:
+    """NOC-style header block. The status line is measured, never hardcoded."""
+    if results:
+        down = [r[0] for r in results if r[2] == "down"]
+        degraded = [r[0] for r in results if r[2] in ("warn", "slow")]
+        if down:
+            status = f"🔴 DEGRADED — {', '.join(down)} unreachable"
+        elif degraded:
+            status = f"🟡 PARTIAL — {', '.join(degraded)} responding slowly"
+        else:
+            status = f"🟢 ALL {len(results)} MONITORED SERVICES OPERATIONAL"
+    else:
+        status = "⚪ NO PROBE DATA — awaiting next scheduled run"
+
+    stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    return "\n".join(
+        [
+            "```console",
+            "[ OPS TELEMETRY — npkpadala ]",
+            "-" * 78,
+            "HOST        : Oracle Cloud Infrastructure · Oracle Linux (aarch64)",
+            "RUNTIME     : PM2 process manager · Docker · nginx reverse proxy",
+            "DATA        : PostgreSQL (per-tenant) · Redis · Celery workers",
+            "OBSERVE     : self-built Ops Monitor · 5s host+app polling · Telegram paging",
+            f"STATUS      : {status}",
+            f"LAST PROBE  : {stamp}",
+            "-" * 78,
+            "```",
+        ]
+    )
 
 
 # ─── activity ───────────────────────────────────────────────────────────────
@@ -173,8 +329,22 @@ def main() -> int:
     with open(README, encoding="utf-8") as fh:
         original = fh.read()
 
+    results = probe_all()
+
     updated = original
-    for name, builder in (("activity", build_activity), ("waka", build_waka)):
+
+    # The banner carries the same probe timestamp as the table, so it must obey
+    # the same staleness rule — rewriting it on every run would put the hourly
+    # commit churn straight back.
+    telemetry = build_telemetry(results, original)
+
+    builders = (
+        ("telemetry", lambda: telemetry),
+        ("banner", lambda: build_banner(results) if telemetry else None),
+        ("activity", build_activity),
+        ("waka", build_waka),
+    )
+    for name, builder in builders:
         body = builder()
         if body:
             updated = replace_section(updated, name, body)
