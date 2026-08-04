@@ -37,9 +37,17 @@ TIMEOUT = 20
 # resolves shows a permanent red row, which is worse than not listing it.
 # Prefer a cheap /health path over a homepage: it makes the latency column mean
 # something and costs the origin nothing.
-ENDPOINTS: list[tuple[str, str]] = [
-    ("Portfolio Website", "https://npkpadala.com"),
-    ("PDFWala", "https://pdf.npkpadala.com/"),
+#
+# Third field is the health policy:
+#   "strict"    — only 2xx/3xx is healthy. Right for a page a visitor loads.
+#   "reachable" — any answer below 500 is healthy, 404 included. Right for an
+#                 API-first host where "/" has no route: the 404 is proof the
+#                 origin is up and routing, not evidence of an outage. A 5xx is
+#                 still amber under this policy, because that is the service
+#                 itself failing rather than a missing path.
+ENDPOINTS: list[tuple[str, str, str]] = [
+    ("Portfolio Website", "https://npkpadala.com", "strict"),
+    ("PDFWala", "https://pdf.npkpadala.com/", "reachable"),
 ]
 
 # Deliberately not probed:
@@ -95,8 +103,18 @@ def clip(text: str, width: int) -> str:
 
 # ─── health probe ───────────────────────────────────────────────────────────
 
-def probe(url: str) -> tuple[str, int | None, int | None]:
-    """Return (state, http_code, latency_ms). state ∈ up | slow | warn | down."""
+def classify(code: int, ms: int, policy: str) -> str:
+    """Map an HTTP answer to a state, according to the endpoint's policy."""
+    if 200 <= code < 400:
+        return "slow" if ms > SLOW_MS else "up"
+    if policy == "reachable" and code < 500:
+        # The origin answered and routed — it is alive, just not at this path.
+        return "alive"
+    return "warn"
+
+
+def probe(url: str, policy: str = "strict") -> tuple[str, int | None, int | None]:
+    """Return (state, http_code, latency_ms). state ∈ up | alive | slow | warn | down."""
     last_code = None
     for attempt in range(PROBE_ATTEMPTS):
         started = time.monotonic()
@@ -104,16 +122,16 @@ def probe(url: str) -> tuple[str, int | None, int | None]:
         try:
             with urllib.request.urlopen(req, timeout=PROBE_TIMEOUT) as resp:
                 ms = int((time.monotonic() - started) * 1000)
-                code = resp.getcode()
-                if 200 <= code < 400:
-                    return ("slow" if ms > SLOW_MS else "up", code, ms)
-                return ("warn", code, ms)
+                return (classify(resp.getcode(), ms, policy), resp.getcode(), ms)
         except urllib.error.HTTPError as exc:
             # A 4xx/5xx is a real answer from a live server — worth distinguishing
-            # from a connection that never completed.
+            # from a connection that never completed. urllib raises rather than
+            # returns these, so the status still has to be classified here.
             last_code = exc.code
-            if attempt == PROBE_ATTEMPTS - 1:
-                return ("warn", exc.code, int((time.monotonic() - started) * 1000))
+            ms = int((time.monotonic() - started) * 1000)
+            state = classify(exc.code, ms, policy)
+            if state != "warn" or attempt == PROBE_ATTEMPTS - 1:
+                return (state, exc.code, ms)
         except Exception as exc:  # noqa: BLE001 — any transport failure is "down"
             print(f"warn: probe {url} attempt {attempt + 1}: {exc}", file=sys.stderr)
         if attempt < PROBE_ATTEMPTS - 1:
@@ -131,8 +149,8 @@ def probe_all() -> list[tuple[str, str, str, int | None, int | None]] | None:
     if not ENDPOINTS:
         return None
     results = []
-    for name, url in ENDPOINTS:
-        state, code, ms = probe(url)
+    for name, url, policy in ENDPOINTS:
+        state, code, ms = probe(url, policy)
         results.append((name, url, state, code, ms))
         print(f"probe {name}: {state} code={code} ms={ms}", file=sys.stderr)
     if all(r[2] == "down" for r in results):
@@ -142,11 +160,14 @@ def probe_all() -> list[tuple[str, str, str, int | None, int | None]] | None:
 
 
 BADGE = {
-    "up":   "🟢 `OPERATIONAL`",
-    "slow": "🟡 `SLOW`",
-    "warn": "🟡 `DEGRADED`",
-    "down": "🔴 `UNREACHABLE`",
+    "up":    "🟢 `OPERATIONAL`",
+    "alive": "🟢 `REACHABLE`",
+    "slow":  "🟡 `SLOW`",
+    "warn":  "🟡 `DEGRADED`",
+    "down":  "🔴 `UNREACHABLE`",
 }
+
+HEALTHY = ("up", "alive")
 
 
 def build_telemetry(results, current: str) -> str | None:
@@ -178,7 +199,7 @@ def build_telemetry(results, current: str) -> str | None:
         detail = f"`{code}`" if code else "`no answer`"
         rows.append(f"| **{name}** | `{shown}` | {BADGE[state]} {detail} | {latency} |")
 
-    up = sum(1 for r in results if r[2] in ("up", "slow"))
+    up = sum(1 for r in results if r[2] in HEALTHY + ("slow",))
     return "\n".join(
         [
             f"<!-- probe:{now.strftime('%Y-%m-%dT%H:%M:%SZ')}|{signature} -->",
@@ -191,7 +212,9 @@ def build_telemetry(results, current: str) -> str | None:
             "",
             "<sub>Two attempts before anything is called unreachable, and a run where"
             " <em>every</em> target fails is treated as a broken prober rather than a"
-            " simultaneous outage.</sub>",
+            " simultaneous outage. API-first hosts are judged on reachability, so a"
+            " <code>404</code> at <code>/</code> reads green — the origin answered and"
+            " routed. A <code>5xx</code> does not.</sub>",
         ]
     )
 
