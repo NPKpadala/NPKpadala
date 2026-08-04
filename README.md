@@ -123,7 +123,16 @@ $ whoami
 ```console
 $ npk-ops --tail activity --user NPKpadala
 
-# awaiting first sync — .github/workflows/readme-activity.yml fills this in every 6h
+ just now  pr      NPKpadala          #1 merged · 
+   3m ago  pr      NPKpadala          #1 opened · 
+   7d ago  create  -sudo-access-trac… branch main
+   8d ago  pr      system_disk        #3 merged · 
+   8d ago  pr      -ops-monitor       #1 merged · 
+   8d ago  pr      -ops-monitor       #1 opened · 
+   8d ago  create  -ops-monitor       branch claude/readme-hiring-mana…
+   8d ago  pr      system_disk        #3 opened · 
+
+# stream synced 2026-08-04 17:49 UTC · refreshed every 6h by GitHub Actions
 ```
 <!-- END_SECTION:activity -->
 
