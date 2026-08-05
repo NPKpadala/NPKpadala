@@ -13,7 +13,7 @@
 </div>
 
 <!-- START_SECTION:banner -->
-> 🟢 **All 2 monitored services operational** · probed `2026-08-05 16:55 UTC`
+> 🟡 **Partial** — Portfolio Website responding slowly · probed `2026-08-05 17:25 UTC`
 <!-- END_SECTION:banner -->
 
 ## About
@@ -67,13 +67,13 @@ Currently going deeper on distributed systems, multi-tenant architecture and per
 ## Live telemetry
 
 <!-- START_SECTION:telemetry -->
-<!-- probe:2026-08-05T16:55:04Z|Portfolio Website=up,PDFWala=up -->
-> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-08-05 16:55 UTC`
+<!-- probe:2026-08-05T17:25:50Z|Portfolio Website=slow,PDFWala=up -->
+> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-08-05 17:25 UTC`
 
 | Service | Endpoint | Health | Latency |
 |:---|:---|:---|:---|
-| **Portfolio Website** | `npkpadala.com` | 🟢 `OPERATIONAL` `200` | `1212 ms` |
-| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `1168 ms` |
+| **Portfolio Website** | `npkpadala.com` | 🟡 `SLOW` `200` | `3192 ms` |
+| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `2818 ms` |
 
 <sub>Two attempts before anything is called unreachable, and a run where every target fails is read as a broken prober, not a simultaneous outage.</sub>
 <!-- END_SECTION:telemetry -->
@@ -98,14 +98,14 @@ Currently going deeper on distributed systems, multi-tenant architecture and per
 
 <!-- START_SECTION:activity -->
 ```text
-  22h ago  pr      NPKpadala          #2 merged
-  22h ago  pr      NPKpadala          #2 opened
+ just now  pr      NPKpadala          #3 merged
+   2m ago  pr      NPKpadala          #3 opened
+  23h ago  pr      NPKpadala          #2 merged
+  23h ago  pr      NPKpadala          #2 opened
   23h ago  pr      NPKpadala          #1 merged
   23h ago  pr      NPKpadala          #1 opened
-  23h ago  create  NPKpadala          branch claude/readme-hiring-mana…
-   8d ago  create  -sudo-access-trac… branch main
 ```
-<sub>Synced 2026-08-05 16:55 UTC · refreshed every 6h by GitHub Actions.</sub>
+<sub>Synced 2026-08-05 17:25 UTC · refreshed every 6h by GitHub Actions.</sub>
 <!-- END_SECTION:activity -->
 
 <!-- Optional: add a WAKATIME_API_KEY repo secret and this fills with last-7-day language stats. -->
