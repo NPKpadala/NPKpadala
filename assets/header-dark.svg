@@ -1,20 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 200" width="900" height="200" role="img" aria-label="Praveen Kumar Padala — Infrastructure Operations &amp; Systems Engineer">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" width="900" height="220" role="img" aria-label="Praveen Kumar Padala — Infrastructure Operations &amp; Systems Engineer. Looping animation of the delivery pipeline: idea, blueprint, code, test, launch, orbit, real users, growth.">
   <title>Praveen Kumar Padala — Infrastructure Operations &amp; Systems Engineer</title>
+  <desc>An eight-act loop: an idea becomes a blueprint, then code, then passing tests, then a launch, then a service in orbit, then real users, then growth — and back to the next idea.</desc>
   <defs>
-    <clipPath id="clip0" class="clip0"><rect x="62.8" y="134" width="369.6" height="24"/></clipPath>
-    <clipPath id="clip1" class="clip1"><rect x="62.8" y="134" width="361.2" height="24" transform="translate(-361.2,0)"/></clipPath>
-    <clipPath id="clip2" class="clip2"><rect x="62.8" y="134" width="277.2" height="24" transform="translate(-277.2,0)"/></clipPath>
+    <clipPath id="clip0" class="clip0"><rect x="62.8" y="152" width="369.6" height="24"/></clipPath>
+    <clipPath id="clip1" class="clip1"><rect x="62.8" y="152" width="361.2" height="24" transform="translate(-361.2,0)"/></clipPath>
+    <clipPath id="clip2" class="clip2"><rect x="62.8" y="152" width="319.2" height="24" transform="translate(-319.2,0)"/></clipPath>
+    <!-- Stops at the horizon line, not the panel floor: the globe and the
+         rocket trail have to be cut off above the act label, not drawn over it. -->
+    <clipPath id="sceneClip"><rect x="548" y="24" width="328" height="138" rx="12"/></clipPath>
+    <!-- userSpaceOnUse: resolved in the translated scene space, so this circle
+         lands on the globe and keeps the drifting continents inside it. -->
+    <clipPath id="earthClip"><circle cx="0" cy="88" r="56"/></clipPath>
     <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#3FB950" stop-opacity="0"/>
       <stop offset="45%" stop-color="#3FB950"/>
-      <stop offset="75%" stop-color="#58A6FF"/>
-      <stop offset="100%" stop-color="#58A6FF" stop-opacity="0"/>
+      <stop offset="75%" stop-color="#2DD4BF"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
     </linearGradient>
+    <linearGradient id="panelGrad" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#161B22"/>
+      <stop offset="100%" stop-color="#0B0F15"/>
+    </linearGradient>
+    <radialGradient id="ideaGlow">
+      <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#3B82F6" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="flameGlow">
+      <stop offset="0%" stop-color="#D29922" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#D29922" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="flameGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2DD4BF"/>
+      <stop offset="45%" stop-color="#D29922"/>
+      <stop offset="100%" stop-color="#D29922" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="trailGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <!-- A vertical <line> has a zero-width bounding box, so the default
+         objectBoundingBox units make this gradient degenerate and the bars
+         vanish. Resolve it in user space instead: base of the chart to the top. -->
+    <linearGradient id="barGrad" gradientUnits="userSpaceOnUse" x1="0" y1="44" x2="0" y2="-32">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <radialGradient id="earthGrad" cx="0.4" cy="0.25">
+      <stop offset="0%" stop-color="#58A6FF"/>
+      <stop offset="70%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.55"/>
+    </radialGradient>
     <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#3FB950" stop-opacity="0.22"/>
+      <stop offset="0%" stop-color="#3FB950" stop-opacity="0.18"/>
       <stop offset="100%" stop-color="#3FB950" stop-opacity="0"/>
     </linearGradient>
-    <clipPath id="card"><rect x="1" y="1" width="898" height="198" rx="14"/></clipPath>
+    <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+    <clipPath id="card"><rect x="1" y="1" width="898" height="218" rx="14"/></clipPath>
   </defs>
   <style>
     .name { font: 600 34px ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; fill: #E6EDF3; letter-spacing: -0.4px }
@@ -24,45 +68,499 @@
     .prompt { font: 400 14px ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; fill: #3FB950 }
     .caret { fill: #3FB950; opacity: 0 }
     .caret0 { opacity: 1 }
-    .trace { fill: none; stroke: #3FB950; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
-    .probe { fill: #58A6FF }
-    .dim { opacity: 0 }
+    .lbl { font: 600 11px ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; fill: #2DD4BF; letter-spacing: 2.2px; opacity: 0 }
+    .idx { font: 400 10px ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; fill: #8B949E; letter-spacing: 1px; opacity: 0 }
+    .lbl0 { opacity: 1 }
+    .tk { fill: #2DD4BF }
+    .act { opacity: 0 }
+    .act0 { opacity: 1 }
+    .code { font: 400 8px ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace }
+    .code-file { font: 400 8.5px ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; fill: #8B949E }
+    .c-k { fill: #3B82F6 }
+    .c-f { fill: #3FB950 }
+    .c-t { fill: #2DD4BF }
+    .c-v { fill: #E6EDF3 }
+    .c-p { fill: #8B949E }
+    text.run-line, text.all-green { font: 400 9.5px ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; fill: #3FB950 }
+    .mono-s { font: 400 9.5px ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; fill: #8B949E }
+    .count { font: 600 26px ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; fill: #D29922; text-anchor: middle }
     @media (prefers-reduced-motion: no-preference) {
-      @keyframes reveal0{0%,0.0000%{transform:translateX(-369.6px)}7.3333%,30.6667%{transform:translateX(0)}31.3333%,100%{transform:translateX(-369.6px)}}@keyframes caret0{0%,0.0000%{transform:translateX(0);opacity:0}0.3333%{transform:translateX(0);opacity:1}7.3333%,30.6667%{transform:translateX(369.6px);opacity:1}31.3333%,100%{transform:translateX(369.6px);opacity:0}}.clip0 rect{animation:reveal0 15s steps(44,end) infinite}.caret0{animation:caret0 15s steps(44,end) infinite}  @keyframes reveal1{0%,33.3333%{transform:translateX(-361.2px)}40.6667%,64.0000%{transform:translateX(0)}64.6667%,100%{transform:translateX(-361.2px)}}@keyframes caret1{0%,33.3333%{transform:translateX(0);opacity:0}33.6667%{transform:translateX(0);opacity:1}40.6667%,64.0000%{transform:translateX(361.2px);opacity:1}64.6667%,100%{transform:translateX(361.2px);opacity:0}}.clip1 rect{animation:reveal1 15s steps(43,end) infinite}.caret1{animation:caret1 15s steps(43,end) infinite}  @keyframes reveal2{0%,66.6667%{transform:translateX(-277.2px)}74.0000%,97.3333%{transform:translateX(0)}98.0000%,100%{transform:translateX(-277.2px)}}@keyframes caret2{0%,66.6667%{transform:translateX(0);opacity:0}67.0000%{transform:translateX(0);opacity:1}74.0000%,97.3333%{transform:translateX(277.2px);opacity:1}98.0000%,100%{transform:translateX(277.2px);opacity:0}}.clip2 rect{animation:reveal2 15s steps(33,end) infinite}.caret2{animation:caret2 15s steps(33,end) infinite} 
-      @keyframes draw { 0% { stroke-dashoffset: 700 } 45%,100% { stroke-dashoffset: 0 } }
-      @keyframes glide { 0% { opacity: 0 } 8%,92% { opacity: 1 } 100% { opacity: 0 } }
-      @keyframes slide { 0% { transform: translateX(-320px) } 100% { transform: translateX(900px) } }
-      .trace { stroke-dasharray: 700; animation: draw 6s ease-in-out infinite }
-      .probe { animation: glide 6s linear infinite }
-      .rail { animation: slide 6s linear infinite }
-      .dim { opacity: 1 }
+      @keyframes reveal0{0%,0.0000%{transform:translateX(-369.6px)}7.3333%,30.6667%{transform:translateX(0)}31.3333%,100%{transform:translateX(-369.6px)}}
+      @keyframes caret0{0%,0.0000%{transform:translateX(0);opacity:0}0.3333%{transform:translateX(0);opacity:1}7.3333%,30.6667%{transform:translateX(369.6px);opacity:1}31.3333%,100%{transform:translateX(369.6px);opacity:0}}
+      .clip0 rect{animation:reveal0 15s steps(44,end) infinite}.caret0{animation:caret0 15s steps(44,end) infinite}
+      @keyframes reveal1{0%,33.3333%{transform:translateX(-361.2px)}40.6667%,64.0000%{transform:translateX(0)}64.6667%,100%{transform:translateX(-361.2px)}}
+      @keyframes caret1{0%,33.3333%{transform:translateX(0);opacity:0}33.6667%{transform:translateX(0);opacity:1}40.6667%,64.0000%{transform:translateX(361.2px);opacity:1}64.6667%,100%{transform:translateX(361.2px);opacity:0}}
+      .clip1 rect{animation:reveal1 15s steps(43,end) infinite}.caret1{animation:caret1 15s steps(43,end) infinite}
+      @keyframes reveal2{0%,66.6667%{transform:translateX(-319.2px)}74.0000%,97.3333%{transform:translateX(0)}98.0000%,100%{transform:translateX(-319.2px)}}
+      @keyframes caret2{0%,66.6667%{transform:translateX(0);opacity:0}67.0000%{transform:translateX(0);opacity:1}74.0000%,97.3333%{transform:translateX(319.2px);opacity:1}98.0000%,100%{transform:translateX(319.2px);opacity:0}}
+      .clip2 rect{animation:reveal2 15s steps(38,end) infinite}.caret2{animation:caret2 15s steps(38,end) infinite}
+      @keyframes bulbGlow{0.000%{opacity:.18;transform:scale(.8)}3.438%{opacity:.5;transform:scale(1.06)}6.875%{opacity:.22;transform:scale(.88)}10.312%{opacity:.46;transform:scale(1.04)}12.500%{opacity:.24;transform:scale(.9)}100.000%{opacity:.24;transform:scale(.9)}}
+      .bulb-glow{animation:bulbGlow 16s ease-in-out infinite}
+      @keyframes filament{0.000%{opacity:.35}3.125%{opacity:1}6.250%{opacity:.5}9.375%{opacity:1}12.500%{opacity:.7}100.000%{opacity:.7}}
+      .filament{animation:filament 16s ease-in-out infinite}
+      @keyframes pulse0{0.000%{opacity:.55;transform:scale(.55)}2.188%{opacity:.55;transform:scale(.55)}7.500%{opacity:0;transform:scale(2.1)}100.000%{opacity:0;transform:scale(2.1)}}
+      .pulse0{animation:pulse0 16s cubic-bezier(.2,.6,.3,1) infinite}
+      @keyframes pulse1{0.000%{opacity:.55;transform:scale(.55)}7.187%{opacity:.55;transform:scale(.55)}12.500%{opacity:0;transform:scale(2.1)}100.000%{opacity:0;transform:scale(2.1)}}
+      .pulse1{animation:pulse1 16s cubic-bezier(.2,.6,.3,1) infinite}
+      @keyframes act0{0.000%{opacity:1;transform:translateY(0) scale(1)}10.250%{opacity:1;transform:translateY(0) scale(1)}12.125%{opacity:0;transform:translateY(-7px) scale(1.05)}97.375%{opacity:0;transform:translateY(7px) scale(.94)}100.000%{opacity:1;transform:translateY(0) scale(1)}}
+      .act0{animation:act0 16s cubic-bezier(.4,0,.2,1) infinite}
+      @keyframes bpTilt{0.000%{transform:rotate(-3.5deg)}12.500%{transform:rotate(-3.5deg)}18.750%{transform:rotate(3.5deg)}25.000%{transform:rotate(-2deg)}100.000%{transform:rotate(-2deg)}}
+      .bp-tilt{animation:bpTilt 16s ease-in-out infinite}
+      @keyframes bpGrid{0.000%{stroke-dashoffset:120}12.500%{stroke-dashoffset:120}17.188%{stroke-dashoffset:0}25.000%{stroke-dashoffset:0}100.000%{stroke-dashoffset:0}}
+      .bp-grid line{animation:bpGrid 16s ease-out infinite}
+      @keyframes bpEdge0{0.000%{stroke-dashoffset:110;opacity:.2}14.688%{stroke-dashoffset:110;opacity:.2}17.500%{stroke-dashoffset:0;opacity:1}25.000%{stroke-dashoffset:0;opacity:1}100.000%{stroke-dashoffset:0;opacity:1}}
+      .bp-edge0{animation:bpEdge0 16s ease-out infinite}
+      @keyframes bpEdge1{0.000%{stroke-dashoffset:110;opacity:.2}15.250%{stroke-dashoffset:110;opacity:.2}18.062%{stroke-dashoffset:0;opacity:1}25.000%{stroke-dashoffset:0;opacity:1}100.000%{stroke-dashoffset:0;opacity:1}}
+      .bp-edge1{animation:bpEdge1 16s ease-out infinite}
+      @keyframes bpEdge2{0.000%{stroke-dashoffset:110;opacity:.2}15.813%{stroke-dashoffset:110;opacity:.2}18.625%{stroke-dashoffset:0;opacity:1}25.000%{stroke-dashoffset:0;opacity:1}100.000%{stroke-dashoffset:0;opacity:1}}
+      .bp-edge2{animation:bpEdge2 16s ease-out infinite}
+      @keyframes bpEdge3{0.000%{stroke-dashoffset:110;opacity:.2}16.375%{stroke-dashoffset:110;opacity:.2}19.188%{stroke-dashoffset:0;opacity:1}25.000%{stroke-dashoffset:0;opacity:1}100.000%{stroke-dashoffset:0;opacity:1}}
+      .bp-edge3{animation:bpEdge3 16s ease-out infinite}
+      @keyframes bpEdge4{0.000%{stroke-dashoffset:110;opacity:.2}16.938%{stroke-dashoffset:110;opacity:.2}19.750%{stroke-dashoffset:0;opacity:1}25.000%{stroke-dashoffset:0;opacity:1}100.000%{stroke-dashoffset:0;opacity:1}}
+      .bp-edge4{animation:bpEdge4 16s ease-out infinite}
+      @keyframes bpEdge5{0.000%{stroke-dashoffset:110;opacity:.2}17.500%{stroke-dashoffset:110;opacity:.2}20.312%{stroke-dashoffset:0;opacity:1}25.000%{stroke-dashoffset:0;opacity:1}100.000%{stroke-dashoffset:0;opacity:1}}
+      .bp-edge5{animation:bpEdge5 16s ease-out infinite}
+      @keyframes bpEdge6{0.000%{stroke-dashoffset:110;opacity:.2}18.062%{stroke-dashoffset:110;opacity:.2}20.875%{stroke-dashoffset:0;opacity:1}25.000%{stroke-dashoffset:0;opacity:1}100.000%{stroke-dashoffset:0;opacity:1}}
+      .bp-edge6{animation:bpEdge6 16s ease-out infinite}
+      @keyframes bpNode0{0.000%{opacity:0;transform:scale(.2)}15.937%{opacity:0;transform:scale(.2)}17.812%{opacity:1;transform:scale(1)}25.000%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .bp-node0{animation:bpNode0 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes bpNode1{0.000%{opacity:0;transform:scale(.2)}16.562%{opacity:0;transform:scale(.2)}18.438%{opacity:1;transform:scale(1)}25.000%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .bp-node1{animation:bpNode1 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes bpNode2{0.000%{opacity:0;transform:scale(.2)}17.188%{opacity:0;transform:scale(.2)}19.062%{opacity:1;transform:scale(1)}25.000%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .bp-node2{animation:bpNode2 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes bpNode3{0.000%{opacity:0;transform:scale(.2)}17.812%{opacity:0;transform:scale(.2)}19.687%{opacity:1;transform:scale(1)}25.000%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .bp-node3{animation:bpNode3 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes bpNode4{0.000%{opacity:0;transform:scale(.2)}18.438%{opacity:0;transform:scale(.2)}20.312%{opacity:1;transform:scale(1)}25.000%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .bp-node4{animation:bpNode4 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes bpNode5{0.000%{opacity:0;transform:scale(.2)}19.062%{opacity:0;transform:scale(.2)}20.937%{opacity:1;transform:scale(1)}25.000%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .bp-node5{animation:bpNode5 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes act1{0.000%{opacity:0;transform:translateY(7px) scale(.94)}11.375%{opacity:0;transform:translateY(7px) scale(.94)}13.625%{opacity:1;transform:translateY(0) scale(1)}22.750%{opacity:1;transform:translateY(0) scale(1)}24.625%{opacity:0;transform:translateY(-7px) scale(1.05)}100.000%{opacity:0;transform:translateY(-7px) scale(1.05)}}
+      .act1{animation:act1 16s cubic-bezier(.4,0,.2,1) infinite}
+      @keyframes type0{0.000%{transform:translateX(-201.6px)}26.875%{transform:translateX(-201.6px)}28.875%{transform:translateX(0)}37.500%{transform:translateX(0)}100.000%{transform:translateX(0)}}
+      .code-clip0 rect{animation:type0 16s steps(42,end) infinite}
+      @keyframes type1{0.000%{transform:translateX(-172.8px)}28.375%{transform:translateX(-172.8px)}30.375%{transform:translateX(0)}37.500%{transform:translateX(0)}100.000%{transform:translateX(0)}}
+      .code-clip1 rect{animation:type1 16s steps(36,end) infinite}
+      @keyframes type2{0.000%{transform:translateX(-206.4px)}29.875%{transform:translateX(-206.4px)}31.875%{transform:translateX(0)}37.500%{transform:translateX(0)}100.000%{transform:translateX(0)}}
+      .code-clip2 rect{animation:type2 16s steps(43,end) infinite}
+      @keyframes type3{0.000%{transform:translateX(-220.8px)}31.375%{transform:translateX(-220.8px)}33.375%{transform:translateX(0)}37.500%{transform:translateX(0)}100.000%{transform:translateX(0)}}
+      .code-clip3 rect{animation:type3 16s steps(46,end) infinite}
+      @keyframes type4{0.000%{transform:translateX(-4.8px)}32.875%{transform:translateX(-4.8px)}34.875%{transform:translateX(0)}37.500%{transform:translateX(0)}100.000%{transform:translateX(0)}}
+      .code-clip4 rect{animation:type4 16s steps(1,end) infinite}
+      @keyframes caretBlink{0.000%{opacity:1}33.750%{opacity:1}35.312%{opacity:0}36.875%{opacity:1}37.500%{opacity:0}100.000%{opacity:0}}
+      .code-caret{animation:caretBlink 16s steps(1,end) infinite}
+      @keyframes act2{0.000%{opacity:0;transform:translateY(7px) scale(.94)}23.875%{opacity:0;transform:translateY(7px) scale(.94)}26.125%{opacity:1;transform:translateY(0) scale(1)}35.250%{opacity:1;transform:translateY(0) scale(1)}37.125%{opacity:0;transform:translateY(-7px) scale(1.05)}100.000%{opacity:0;transform:translateY(-7px) scale(1.05)}}
+      .act2{animation:act2 16s cubic-bezier(.4,0,.2,1) infinite}
+      @keyframes runFade{0.000%{opacity:0}38.438%{opacity:0}40.000%{opacity:1}50.000%{opacity:1}100.000%{opacity:1}}
+      .run-line{animation:runFade 16s ease-out infinite}
+      @keyframes bar0{0.000%{stroke-dashoffset:92}40.312%{stroke-dashoffset:92}42.438%{stroke-dashoffset:0}50.000%{stroke-dashoffset:0}100.000%{stroke-dashoffset:0}}
+      .bar0{animation:bar0 16s cubic-bezier(.3,.7,.4,1) infinite}
+      @keyframes tick0{0.000%{stroke-dashoffset:18;opacity:0}42.188%{stroke-dashoffset:18;opacity:0}42.562%{opacity:1}44.188%{stroke-dashoffset:0;opacity:1}50.000%{stroke-dashoffset:0;opacity:1}100.000%{stroke-dashoffset:0;opacity:1}}
+      .tick0{animation:tick0 16s ease-out infinite}
+      @keyframes row0{0.000%{opacity:0}39.688%{opacity:0}41.562%{opacity:1}50.000%{opacity:1}100.000%{opacity:1}}
+      .row0{animation:row0 16s ease-out infinite}
+      @keyframes bar1{0.000%{stroke-dashoffset:92}42.812%{stroke-dashoffset:92}44.938%{stroke-dashoffset:0}50.000%{stroke-dashoffset:0}100.000%{stroke-dashoffset:0}}
+      .bar1{animation:bar1 16s cubic-bezier(.3,.7,.4,1) infinite}
+      @keyframes tick1{0.000%{stroke-dashoffset:18;opacity:0}44.688%{stroke-dashoffset:18;opacity:0}45.063%{opacity:1}46.688%{stroke-dashoffset:0;opacity:1}50.000%{stroke-dashoffset:0;opacity:1}100.000%{stroke-dashoffset:0;opacity:1}}
+      .tick1{animation:tick1 16s ease-out infinite}
+      @keyframes row1{0.000%{opacity:0}42.188%{opacity:0}44.063%{opacity:1}50.000%{opacity:1}100.000%{opacity:1}}
+      .row1{animation:row1 16s ease-out infinite}
+      @keyframes bar2{0.000%{stroke-dashoffset:92}45.312%{stroke-dashoffset:92}47.438%{stroke-dashoffset:0}50.000%{stroke-dashoffset:0}100.000%{stroke-dashoffset:0}}
+      .bar2{animation:bar2 16s cubic-bezier(.3,.7,.4,1) infinite}
+      @keyframes tick2{0.000%{stroke-dashoffset:18;opacity:0}47.188%{stroke-dashoffset:18;opacity:0}47.562%{opacity:1}49.188%{stroke-dashoffset:0;opacity:1}50.000%{stroke-dashoffset:0;opacity:1}100.000%{stroke-dashoffset:0;opacity:1}}
+      .tick2{animation:tick2 16s ease-out infinite}
+      @keyframes row2{0.000%{opacity:0}44.688%{opacity:0}46.562%{opacity:1}50.000%{opacity:1}100.000%{opacity:1}}
+      .row2{animation:row2 16s ease-out infinite}
+      @keyframes allGreen{0.000%{opacity:0}47.812%{opacity:0}49.062%{opacity:1}50.000%{opacity:1}100.000%{opacity:1}}
+      .all-green{animation:allGreen 16s ease-out infinite}
+      @keyframes act3{0.000%{opacity:0;transform:translateY(7px) scale(.94)}36.375%{opacity:0;transform:translateY(7px) scale(.94)}38.625%{opacity:1;transform:translateY(0) scale(1)}47.750%{opacity:1;transform:translateY(0) scale(1)}49.625%{opacity:0;transform:translateY(-7px) scale(1.05)}100.000%{opacity:0;transform:translateY(-7px) scale(1.05)}}
+      .act3{animation:act3 16s cubic-bezier(.4,0,.2,1) infinite}
+      @keyframes count0{0.000%{opacity:0;transform:scale(1.5)}50.625%{opacity:0;transform:scale(1.5)}51.250%{opacity:.9;transform:scale(1)}52.125%{opacity:0;transform:scale(.85)}62.500%{opacity:0;transform:scale(.85)}100.000%{opacity:0;transform:scale(.85)}}
+      .count0{animation:count0 16s ease-out infinite}
+      @keyframes count1{0.000%{opacity:0;transform:scale(1.5)}52.250%{opacity:0;transform:scale(1.5)}52.875%{opacity:.9;transform:scale(1)}53.750%{opacity:0;transform:scale(.85)}62.500%{opacity:0;transform:scale(.85)}100.000%{opacity:0;transform:scale(.85)}}
+      .count1{animation:count1 16s ease-out infinite}
+      @keyframes count2{0.000%{opacity:0;transform:scale(1.5)}53.875%{opacity:0;transform:scale(1.5)}54.500%{opacity:.9;transform:scale(1)}55.375%{opacity:0;transform:scale(.85)}62.500%{opacity:0;transform:scale(.85)}100.000%{opacity:0;transform:scale(.85)}}
+      .count2{animation:count2 16s ease-out infinite}
+      @keyframes rocketRun{0.000%{transform:translateY(0)}50.000%{transform:translateY(0)}55.937%{transform:translateY(0)}56.563%{transform:translateY(-6px)}62.187%{transform:translateY(-190px)}62.500%{transform:translateY(-190px)}100.000%{transform:translateY(-190px)}}
+      .rocket{animation:rocketRun 16s cubic-bezier(.55,0,.9,.35) infinite}
+      @keyframes shudder{0.000%{transform:translateX(0)}53.438%{transform:translateX(0)}53.875%{transform:translateX(1.1px)}54.312%{transform:translateX(-1.1px)}54.750%{transform:translateX(.9px)}55.188%{transform:translateX(-.9px)}55.625%{transform:translateX(.6px)}56.063%{transform:translateX(0)}62.500%{transform:translateX(0)}100.000%{transform:translateX(0)}}
+      .shudder{animation:shudder 16s steps(1,end) infinite}
+      @keyframes flame{0.000%{opacity:0;transform:scaleY(.2)}53.125%{opacity:0;transform:scaleY(.2)}54.500%{opacity:1;transform:scaleY(.75)}55.250%{opacity:.85;transform:scaleY(1.15)}56.000%{opacity:1;transform:scaleY(.9)}56.875%{opacity:1;transform:scaleY(1.35)}61.875%{opacity:1;transform:scaleY(1.1)}62.500%{opacity:0;transform:scaleY(.6)}100.000%{opacity:0;transform:scaleY(.6)}}
+      .flame{animation:flame 16s ease-in-out infinite}
+      @keyframes trail{0.000%{opacity:0;transform:scaleY(0)}56.250%{opacity:0;transform:scaleY(0)}57.812%{opacity:.55;transform:scaleY(1)}61.562%{opacity:.25;transform:scaleY(1)}62.500%{opacity:0;transform:scaleY(1)}100.000%{opacity:0;transform:scaleY(1)}}
+      .trail{animation:trail 16s ease-out infinite}
+      @keyframes padGlow{0.000%{opacity:0}53.750%{opacity:0}56.250%{opacity:.5}60.000%{opacity:0}62.500%{opacity:0}100.000%{opacity:0}}
+      .pad-glow{animation:padGlow 16s ease-out infinite}
+      @keyframes smoke0{0.000%{opacity:0;transform:translate(0,0) scale(.3)}55.937%{opacity:0;transform:translate(0,0) scale(.3)}57.187%{opacity:.35;transform:translate(-8px,-2px) scale(.8)}61.250%{opacity:0;transform:translate(-16px,-8px) scale(1.9)}62.500%{opacity:0;transform:translate(-16px,-8px) scale(1.9)}100.000%{opacity:0;transform:translate(-16px,-8px) scale(1.9)}}
+      .smoke0{animation:smoke0 16s ease-out infinite}
+      @keyframes smoke1{0.000%{opacity:0;transform:translate(0,0) scale(.3)}56.687%{opacity:0;transform:translate(0,0) scale(.3)}57.937%{opacity:.35;transform:translate(7px,-2px) scale(.8)}62.000%{opacity:0;transform:translate(14px,-8px) scale(1.9)}62.500%{opacity:0;transform:translate(14px,-8px) scale(1.9)}100.000%{opacity:0;transform:translate(14px,-8px) scale(1.9)}}
+      .smoke1{animation:smoke1 16s ease-out infinite}
+      @keyframes smoke2{0.000%{opacity:0;transform:translate(0,0) scale(.3)}57.312%{opacity:0;transform:translate(0,0) scale(.3)}58.562%{opacity:.35;transform:translate(-14px,-2px) scale(.8)}62.500%{opacity:0;transform:translate(-28px,-8px) scale(1.9)}62.625%{opacity:0;transform:translate(-28px,-8px) scale(1.9)}100.000%{opacity:0;transform:translate(-28px,-8px) scale(1.9)}}
+      .smoke2{animation:smoke2 16s ease-out infinite}
+      @keyframes smoke3{0.000%{opacity:0;transform:translate(0,0) scale(.3)}57.812%{opacity:0;transform:translate(0,0) scale(.3)}59.062%{opacity:.35;transform:translate(13px,-2px) scale(.8)}62.500%{opacity:0;transform:translate(26px,-8px) scale(1.9)}63.125%{opacity:0;transform:translate(26px,-8px) scale(1.9)}100.000%{opacity:0;transform:translate(26px,-8px) scale(1.9)}}
+      .smoke3{animation:smoke3 16s ease-out infinite}
+      @keyframes act4{0.000%{opacity:0;transform:translateY(7px) scale(.94)}48.875%{opacity:0;transform:translateY(7px) scale(.94)}51.125%{opacity:1;transform:translateY(0) scale(1)}60.250%{opacity:1;transform:translateY(0) scale(1)}62.125%{opacity:0;transform:translateY(-7px) scale(1.05)}100.000%{opacity:0;transform:translateY(-7px) scale(1.05)}}
+      .act4{animation:act4 16s cubic-bezier(.4,0,.2,1) infinite}
+      @keyframes spin{0.000%{transform:translateX(0)}62.500%{transform:translateX(0)}75.000%{transform:translateX(-56px)}100.000%{transform:translateX(-56px)}}
+      .earth-spin{animation:spin 16s linear infinite}
+      @keyframes halo{0.000%{opacity:.25}62.500%{opacity:.25}68.750%{opacity:.5}75.000%{opacity:.3}100.000%{opacity:.3}}
+      .earth-halo{animation:halo 16s ease-in-out infinite}
+      @keyframes orbitPath{0.000%{stroke-dashoffset:340;opacity:0}63.750%{stroke-dashoffset:340;opacity:0}68.125%{stroke-dashoffset:0;opacity:.5}75.000%{stroke-dashoffset:0;opacity:.5}100.000%{stroke-dashoffset:0;opacity:.5}}
+      .orbit-ring{animation:orbitPath 16s ease-out infinite}
+      @keyframes twinkle0{0.000%{opacity:.25}62.500%{opacity:.25}65.625%{opacity:.95}69.375%{opacity:.3}75.000%{opacity:.6}100.000%{opacity:.6}}
+      .star0{animation:twinkle0 16s ease-in-out infinite}
+      @keyframes twinkle1{0.000%{opacity:.25}62.500%{opacity:.25}68.750%{opacity:.95}72.500%{opacity:.3}75.000%{opacity:.6}100.000%{opacity:.6}}
+      .star1{animation:twinkle1 16s ease-in-out infinite}
+      @keyframes twinkle2{0.000%{opacity:.25}62.500%{opacity:.25}71.875%{opacity:.95}75.000%{opacity:.6}75.625%{opacity:.3}100.000%{opacity:.3}}
+      .star2{animation:twinkle2 16s ease-in-out infinite}
+      @keyframes twinkle3{0.000%{opacity:.25}62.500%{opacity:.25}67.500%{opacity:.95}71.250%{opacity:.3}75.000%{opacity:.6}100.000%{opacity:.6}}
+      .star3{animation:twinkle3 16s ease-in-out infinite}
+      @keyframes twinkle4{0.000%{opacity:.25}62.500%{opacity:.25}70.625%{opacity:.95}74.375%{opacity:.3}75.000%{opacity:.6}100.000%{opacity:.6}}
+      .star4{animation:twinkle4 16s ease-in-out infinite}
+      @keyframes twinkle5{0.000%{opacity:.25}62.500%{opacity:.25}66.562%{opacity:.95}70.312%{opacity:.3}75.000%{opacity:.6}100.000%{opacity:.6}}
+      .star5{animation:twinkle5 16s ease-in-out infinite}
+      @keyframes twinkle6{0.000%{opacity:.25}62.500%{opacity:.25}73.125%{opacity:.95}75.000%{opacity:.6}76.875%{opacity:.3}100.000%{opacity:.3}}
+      .star6{animation:twinkle6 16s ease-in-out infinite}
+      @keyframes twinkle7{0.000%{opacity:.25}62.500%{opacity:.25}69.688%{opacity:.95}73.438%{opacity:.3}75.000%{opacity:.6}100.000%{opacity:.6}}
+      .star7{animation:twinkle7 16s ease-in-out infinite}
+      @keyframes act5{0.000%{opacity:0;transform:translateY(7px) scale(.94)}61.375%{opacity:0;transform:translateY(7px) scale(.94)}63.625%{opacity:1;transform:translateY(0) scale(1)}72.750%{opacity:1;transform:translateY(0) scale(1)}74.625%{opacity:0;transform:translateY(-7px) scale(1.05)}100.000%{opacity:0;transform:translateY(-7px) scale(1.05)}}
+      .act5{animation:act5 16s cubic-bezier(.4,0,.2,1) infinite}
+      @keyframes hubPulse{0.000%{opacity:.5;transform:scale(.7)}76.250%{opacity:.5;transform:scale(.7)}81.250%{opacity:0;transform:scale(2.4)}81.875%{opacity:.5;transform:scale(.7)}86.875%{opacity:0;transform:scale(2.4)}87.500%{opacity:0;transform:scale(2.4)}100.000%{opacity:0;transform:scale(2.4)}}
+      .hub-pulse{animation:hubPulse 16s cubic-bezier(.2,.6,.3,1) infinite}
+      @keyframes user0{0.000%{opacity:0;transform:scale(.3)}76.875%{opacity:0;transform:scale(.3)}78.625%{opacity:1;transform:scale(1)}87.500%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .user0{animation:user0 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes link0{0.000%{stroke-dashoffset:160;opacity:0}77.812%{stroke-dashoffset:160;opacity:0}80.000%{stroke-dashoffset:0;opacity:.45}87.500%{stroke-dashoffset:0;opacity:.45}100.000%{stroke-dashoffset:0;opacity:.45}}
+      .link0{animation:link0 16s ease-out infinite}
+      @keyframes user1{0.000%{opacity:0;transform:scale(.3)}77.562%{opacity:0;transform:scale(.3)}79.312%{opacity:1;transform:scale(1)}87.500%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .user1{animation:user1 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes link1{0.000%{stroke-dashoffset:160;opacity:0}78.500%{stroke-dashoffset:160;opacity:0}80.688%{stroke-dashoffset:0;opacity:.45}87.500%{stroke-dashoffset:0;opacity:.45}100.000%{stroke-dashoffset:0;opacity:.45}}
+      .link1{animation:link1 16s ease-out infinite}
+      @keyframes user2{0.000%{opacity:0;transform:scale(.3)}78.250%{opacity:0;transform:scale(.3)}80.000%{opacity:1;transform:scale(1)}87.500%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .user2{animation:user2 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes link2{0.000%{stroke-dashoffset:160;opacity:0}79.188%{stroke-dashoffset:160;opacity:0}81.375%{stroke-dashoffset:0;opacity:.45}87.500%{stroke-dashoffset:0;opacity:.45}100.000%{stroke-dashoffset:0;opacity:.45}}
+      .link2{animation:link2 16s ease-out infinite}
+      @keyframes user3{0.000%{opacity:0;transform:scale(.3)}78.938%{opacity:0;transform:scale(.3)}80.688%{opacity:1;transform:scale(1)}87.500%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .user3{animation:user3 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes link3{0.000%{stroke-dashoffset:160;opacity:0}79.875%{stroke-dashoffset:160;opacity:0}82.062%{stroke-dashoffset:0;opacity:.45}87.500%{stroke-dashoffset:0;opacity:.45}100.000%{stroke-dashoffset:0;opacity:.45}}
+      .link3{animation:link3 16s ease-out infinite}
+      @keyframes user4{0.000%{opacity:0;transform:scale(.3)}79.625%{opacity:0;transform:scale(.3)}81.375%{opacity:1;transform:scale(1)}87.500%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .user4{animation:user4 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes link4{0.000%{stroke-dashoffset:160;opacity:0}80.562%{stroke-dashoffset:160;opacity:0}82.750%{stroke-dashoffset:0;opacity:.45}87.500%{stroke-dashoffset:0;opacity:.45}100.000%{stroke-dashoffset:0;opacity:.45}}
+      .link4{animation:link4 16s ease-out infinite}
+      @keyframes user5{0.000%{opacity:0;transform:scale(.3)}80.313%{opacity:0;transform:scale(.3)}82.062%{opacity:1;transform:scale(1)}87.500%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .user5{animation:user5 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes link5{0.000%{stroke-dashoffset:160;opacity:0}81.250%{stroke-dashoffset:160;opacity:0}83.438%{stroke-dashoffset:0;opacity:.45}87.500%{stroke-dashoffset:0;opacity:.45}100.000%{stroke-dashoffset:0;opacity:.45}}
+      .link5{animation:link5 16s ease-out infinite}
+      @keyframes user6{0.000%{opacity:0;transform:scale(.3)}81.000%{opacity:0;transform:scale(.3)}82.750%{opacity:1;transform:scale(1)}87.500%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .user6{animation:user6 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes link6{0.000%{stroke-dashoffset:160;opacity:0}81.938%{stroke-dashoffset:160;opacity:0}84.125%{stroke-dashoffset:0;opacity:.45}87.500%{stroke-dashoffset:0;opacity:.45}100.000%{stroke-dashoffset:0;opacity:.45}}
+      .link6{animation:link6 16s ease-out infinite}
+      @keyframes user7{0.000%{opacity:0;transform:scale(.3)}81.688%{opacity:0;transform:scale(.3)}83.438%{opacity:1;transform:scale(1)}87.500%{opacity:1;transform:scale(1)}100.000%{opacity:1;transform:scale(1)}}
+      .user7{animation:user7 16s cubic-bezier(.2,1.4,.4,1) infinite}
+      @keyframes link7{0.000%{stroke-dashoffset:160;opacity:0}82.625%{stroke-dashoffset:160;opacity:0}84.812%{stroke-dashoffset:0;opacity:.45}87.500%{stroke-dashoffset:0;opacity:.45}100.000%{stroke-dashoffset:0;opacity:.45}}
+      .link7{animation:link7 16s ease-out infinite}
+      @keyframes act6{0.000%{opacity:0;transform:translateY(7px) scale(.94)}73.875%{opacity:0;transform:translateY(7px) scale(.94)}76.125%{opacity:1;transform:translateY(0) scale(1)}85.250%{opacity:1;transform:translateY(0) scale(1)}87.125%{opacity:0;transform:translateY(-7px) scale(1.05)}100.000%{opacity:0;transform:translateY(-7px) scale(1.05)}}
+      .act6{animation:act6 16s cubic-bezier(.4,0,.2,1) infinite}
+      @keyframes grow0{0.000%{stroke-dashoffset:14}89.062%{stroke-dashoffset:14}91.562%{stroke-dashoffset:0}100.000%{stroke-dashoffset:0}}
+      .grow0{animation:grow0 16s cubic-bezier(.2,.8,.3,1) infinite}
+      @keyframes grow1{0.000%{stroke-dashoffset:22}89.688%{stroke-dashoffset:22}92.188%{stroke-dashoffset:0}100.000%{stroke-dashoffset:0}}
+      .grow1{animation:grow1 16s cubic-bezier(.2,.8,.3,1) infinite}
+      @keyframes grow2{0.000%{stroke-dashoffset:30}90.312%{stroke-dashoffset:30}92.812%{stroke-dashoffset:0}100.000%{stroke-dashoffset:0}}
+      .grow2{animation:grow2 16s cubic-bezier(.2,.8,.3,1) infinite}
+      @keyframes grow3{0.000%{stroke-dashoffset:27}90.938%{stroke-dashoffset:27}93.438%{stroke-dashoffset:0}100.000%{stroke-dashoffset:0}}
+      .grow3{animation:grow3 16s cubic-bezier(.2,.8,.3,1) infinite}
+      @keyframes grow4{0.000%{stroke-dashoffset:42}91.562%{stroke-dashoffset:42}94.062%{stroke-dashoffset:0}100.000%{stroke-dashoffset:0}}
+      .grow4{animation:grow4 16s cubic-bezier(.2,.8,.3,1) infinite}
+      @keyframes grow5{0.000%{stroke-dashoffset:55}92.188%{stroke-dashoffset:55}94.688%{stroke-dashoffset:0}100.000%{stroke-dashoffset:0}}
+      .grow5{animation:grow5 16s cubic-bezier(.2,.8,.3,1) infinite}
+      @keyframes grow6{0.000%{stroke-dashoffset:70}92.812%{stroke-dashoffset:70}95.312%{stroke-dashoffset:0}100.000%{stroke-dashoffset:0}}
+      .grow6{animation:grow6 16s cubic-bezier(.2,.8,.3,1) infinite}
+      @keyframes trend{0.000%{stroke-dashoffset:260;opacity:0}93.125%{stroke-dashoffset:260;opacity:0}93.750%{opacity:1}97.188%{stroke-dashoffset:0;opacity:1}100.000%{stroke-dashoffset:0;opacity:1}}
+      .trend{animation:trend 16s cubic-bezier(.3,.7,.4,1) infinite}
+      @keyframes seed{0.000%{opacity:0;transform:translate(84px,-36px) scale(.4)}96.875%{opacity:0;transform:translate(84px,-36px) scale(.4)}97.625%{opacity:1;transform:translate(84px,-36px) scale(1)}99.500%{opacity:.9;transform:translate(0,-6px) scale(1.5)}100.000%{opacity:0;transform:translate(0,-6px) scale(.4)}}
+      .seed{animation:seed 16s cubic-bezier(.5,0,.2,1) infinite}
+      @keyframes axisFade{0.000%{opacity:0}88.438%{opacity:0}90.000%{opacity:1}100.000%{opacity:1}}
+      .axis{animation:axisFade 16s ease-out infinite}
+      @keyframes act7{0.000%{opacity:0;transform:translateY(7px) scale(.94)}86.375%{opacity:0;transform:translateY(7px) scale(.94)}88.625%{opacity:1;transform:translateY(0) scale(1)}97.750%{opacity:1;transform:translateY(0) scale(1)}99.625%{opacity:0;transform:translateY(-7px) scale(1.05)}100.000%{opacity:0;transform:translateY(-7px) scale(1.05)}}
+      .act7{animation:act7 16s cubic-bezier(.4,0,.2,1) infinite}
+      @keyframes lbl0{0.000%{opacity:1}10.312%{opacity:1}12.188%{opacity:0}98.750%{opacity:0}100.000%{opacity:1}}
+      .lbl0{animation:lbl0 16s ease-out infinite}
+      @keyframes lbl1{0.000%{opacity:0}11.562%{opacity:0}13.750%{opacity:1}22.812%{opacity:1}24.688%{opacity:0}100.000%{opacity:0}}
+      .lbl1{animation:lbl1 16s ease-out infinite}
+      @keyframes lbl2{0.000%{opacity:0}24.062%{opacity:0}26.250%{opacity:1}35.312%{opacity:1}37.188%{opacity:0}100.000%{opacity:0}}
+      .lbl2{animation:lbl2 16s ease-out infinite}
+      @keyframes lbl3{0.000%{opacity:0}36.562%{opacity:0}38.750%{opacity:1}47.812%{opacity:1}49.688%{opacity:0}100.000%{opacity:0}}
+      .lbl3{animation:lbl3 16s ease-out infinite}
+      @keyframes lbl4{0.000%{opacity:0}49.062%{opacity:0}51.250%{opacity:1}60.312%{opacity:1}62.187%{opacity:0}100.000%{opacity:0}}
+      .lbl4{animation:lbl4 16s ease-out infinite}
+      @keyframes lbl5{0.000%{opacity:0}61.562%{opacity:0}63.750%{opacity:1}72.812%{opacity:1}74.688%{opacity:0}100.000%{opacity:0}}
+      .lbl5{animation:lbl5 16s ease-out infinite}
+      @keyframes lbl6{0.000%{opacity:0}74.062%{opacity:0}76.250%{opacity:1}85.312%{opacity:1}87.188%{opacity:0}100.000%{opacity:0}}
+      .lbl6{animation:lbl6 16s ease-out infinite}
+      @keyframes lbl7{0.000%{opacity:0}86.562%{opacity:0}88.750%{opacity:1}97.812%{opacity:1}99.688%{opacity:0}100.000%{opacity:0}}
+      .lbl7{animation:lbl7 16s ease-out infinite}
+      @keyframes tk0{0.000%{opacity:.25;r:1.6}1.562%{opacity:1;r:2.6}11.250%{opacity:1;r:2.6}12.812%{opacity:.25;r:1.6}100.000%{opacity:.25;r:1.6}}
+      .tk0{animation:tk0 16s ease-out infinite}
+      @keyframes tk1{0.000%{opacity:.25;r:1.6}11.875%{opacity:.25;r:1.6}14.062%{opacity:1;r:2.6}23.750%{opacity:1;r:2.6}25.312%{opacity:.25;r:1.6}100.000%{opacity:.25;r:1.6}}
+      .tk1{animation:tk1 16s ease-out infinite}
+      @keyframes tk2{0.000%{opacity:.25;r:1.6}24.375%{opacity:.25;r:1.6}26.562%{opacity:1;r:2.6}36.250%{opacity:1;r:2.6}37.812%{opacity:.25;r:1.6}100.000%{opacity:.25;r:1.6}}
+      .tk2{animation:tk2 16s ease-out infinite}
+      @keyframes tk3{0.000%{opacity:.25;r:1.6}36.875%{opacity:.25;r:1.6}39.062%{opacity:1;r:2.6}48.750%{opacity:1;r:2.6}50.313%{opacity:.25;r:1.6}100.000%{opacity:.25;r:1.6}}
+      .tk3{animation:tk3 16s ease-out infinite}
+      @keyframes tk4{0.000%{opacity:.25;r:1.6}49.375%{opacity:.25;r:1.6}51.562%{opacity:1;r:2.6}61.250%{opacity:1;r:2.6}62.813%{opacity:.25;r:1.6}100.000%{opacity:.25;r:1.6}}
+      .tk4{animation:tk4 16s ease-out infinite}
+      @keyframes tk5{0.000%{opacity:.25;r:1.6}61.875%{opacity:.25;r:1.6}64.062%{opacity:1;r:2.6}73.750%{opacity:1;r:2.6}75.312%{opacity:.25;r:1.6}100.000%{opacity:.25;r:1.6}}
+      .tk5{animation:tk5 16s ease-out infinite}
+      @keyframes tk6{0.000%{opacity:.25;r:1.6}74.375%{opacity:.25;r:1.6}76.562%{opacity:1;r:2.6}86.250%{opacity:1;r:2.6}87.812%{opacity:.25;r:1.6}100.000%{opacity:.25;r:1.6}}
+      .tk6{animation:tk6 16s ease-out infinite}
+      @keyframes tk7{0.000%{opacity:.25;r:1.6}86.875%{opacity:.25;r:1.6}89.062%{opacity:1;r:2.6}98.750%{opacity:1;r:2.6}100.000%{opacity:.25;r:1.6}100.000%{opacity:.25;r:1.6}}
+      .tk7{animation:tk7 16s ease-out infinite}
+      @keyframes rail{0.000%{stroke-dashoffset:292.0}100.000%{stroke-dashoffset:0}}
+      .rail-fill{animation:rail 16s linear infinite}
     }
   </style>
 
-  <rect x="1" y="1" width="898" height="198" rx="14" fill="#0D1117" stroke="#30363D"/>
+  <rect x="1" y="1" width="898" height="218" rx="14" fill="#0D1117" stroke="#30363D"/>
   <g clip-path="url(#card)">
-    <rect class="rail" x="0" y="1" width="320" height="2" fill="url(#sweep)"/>
-    <rect x="0" y="0" width="900" height="200" fill="url(#fade)" opacity="0.35"/>
+    <rect x="0" y="0" width="900" height="220" fill="url(#fade)" opacity="0.3"/>
+    <rect x="0" y="1" width="900" height="2" fill="url(#sweep)"/>
   </g>
 
-  <text class="kicker" x="46" y="52">OPS · AUTOMATION · RELIABILITY</text>
-  <text class="name" x="44" y="94">Praveen Kumar Padala</text>
-  <text class="role" x="46" y="120">Infrastructure Operations &amp; Systems Engineer</text>
+  <text class="kicker" x="46" y="56">OPS · AUTOMATION · AI IN THE LOOP</text>
+  <text class="name" x="44" y="100">Praveen Kumar Padala</text>
+  <text class="role" x="46" y="126">Infrastructure Operations &amp; Systems Engineer</text>
 
   <g>
-    <text class="prompt" x="46" y="150">$ </text>
-    <g clip-path="url(#clip0)"><text x="62.8" y="150" class="typed">provision  ·  harden  ·  monitor  ·  restore</text></g>
-    <rect class="caret caret0" x="62.8" y="138" width="8" height="16" transform="translate(369.6,0)"/>
-    <g clip-path="url(#clip1)"><text x="62.8" y="150" class="typed">if it runs in production, I carry the pager</text></g>
-    <rect class="caret caret1" x="62.8" y="138" width="8" height="16"/>
-    <g clip-path="url(#clip2)"><text x="62.8" y="150" class="typed">observability I built, not bought</text></g>
-    <rect class="caret caret2" x="62.8" y="138" width="8" height="16"/>
+    <text class="prompt" x="46" y="168">$ </text>
+    <g clip-path="url(#clip0)"><text x="62.8" y="168" class="typed">provision  ·  harden  ·  monitor  ·  restore</text></g>
+    <rect class="caret caret0" x="62.8" y="156" width="8" height="16" transform="translate(369.6,0)"/>
+    <g clip-path="url(#clip1)"><text x="62.8" y="168" class="typed">if it runs in production, I carry the pager</text></g>
+    <rect class="caret caret1" x="62.8" y="156" width="8" height="16"/>
+    <g clip-path="url(#clip2)"><text x="62.8" y="168" class="typed">putting AI to work inside the ops loop</text></g>
+    <rect class="caret caret2" x="62.8" y="156" width="8" height="16"/>
   </g>
 
-  <g transform="translate(0,10)">
-    <path class="trace" d="M 596 132 L 622 124 L 648 136 L 674 96 L 700 108 L 726 72 L 752 88 L 778 58 L 804 74 L 830 44 L 856 56"/>
-    <circle class="probe dim" r="4">
-      <animateMotion dur="6s" repeatCount="indefinite" path="M 596 132 L 622 124 L 648 136 L 674 96 L 700 108 L 726 72 L 752 88 L 778 58 L 804 74 L 830 44 L 856 56" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
-    </circle>
+  <g clip-path="url(#sceneClip)">
+    <rect x="548" y="24" width="328" height="172" fill="url(#panelGrad)"/>
+  <g class="act act0">
+    <g transform="translate(712.0,92)">
+      <circle class="bulb-glow" r="34" fill="url(#ideaGlow)"/>
+      <circle class="pulse0" r="20" fill="none" stroke="#2DD4BF" stroke-width="1.2" opacity="0"/>
+      <circle class="pulse1" r="20" fill="none" stroke="#2DD4BF" stroke-width="1.2" opacity="0"/>
+      <path d="M 0 -26 a 19 19 0 0 1 11 34 v 6 h -22 v -6 a 19 19 0 0 1 11 -34 z"
+            fill="#0B0F15" stroke="#2DD4BF" stroke-width="1.6" stroke-linejoin="round"/>
+      <path class="filament" d="M -7 6 C -5 -6, -2 -6, 0 2 C 2 -6, 5 -6, 7 6"
+            fill="none" stroke="#3FB950" stroke-width="1.6" stroke-linecap="round"/>
+      <rect x="-8" y="16" width="16" height="4" rx="1.4" fill="#8B949E"/>
+      <rect x="-6" y="21" width="12" height="3" rx="1.4" fill="#8B949E" opacity=".7"/>
+      <g opacity="0.90"><circle r="2.0" fill="#2DD4BF"><animateMotion dur="3.4s" repeatCount="indefinite" path="M -44 0 A 44 20 0 1 0 44 0 A 44 20 0 1 0 -44 0"/></circle></g>
+      <g opacity="0.75"><circle r="1.6" fill="#3B82F6"><animateMotion dur="4.6s" repeatCount="indefinite" path="M -34 0 A 34 30 0 1 0 34 0 A 34 30 0 1 0 -34 0"/></circle></g>
+      <g opacity="0.60"><circle r="1.4" fill="#3FB950"><animateMotion dur="5.8s" repeatCount="indefinite" path="M -52 0 A 52 26 0 1 0 52 0 A 52 26 0 1 0 -52 0"/></circle></g>
+    </g>
   </g>
+  <g class="act act1">
+    <g transform="translate(712.0,92)">
+      <g class="bp-tilt">
+        <g class="bp-grid" stroke="#21262D" stroke-width="1" stroke-dasharray="120">
+        <line x1="-90" y1="-46" x2="-90" y2="46"/>
+        <line x1="-60" y1="-46" x2="-60" y2="46"/>
+        <line x1="-30" y1="-46" x2="-30" y2="46"/>
+        <line x1="0" y1="-46" x2="0" y2="46"/>
+        <line x1="30" y1="-46" x2="30" y2="46"/>
+        <line x1="60" y1="-46" x2="60" y2="46"/>
+        <line x1="90" y1="-46" x2="90" y2="46"/>
+        <line x1="-90" y1="-46" x2="90" y2="-46"/>
+        <line x1="-90" y1="-23" x2="90" y2="-23"/>
+        <line x1="-90" y1="0" x2="90" y2="0"/>
+        <line x1="-90" y1="23" x2="90" y2="23"/>
+        <line x1="-90" y1="46" x2="90" y2="46"/>
+        </g>
+        <g class="bp-edges" stroke="#3B82F6" stroke-width="1.4" stroke-dasharray="110" opacity=".85">
+        <line class="bp-edge bp-edge0" x1="-62" y1="-18" x2="-16" y2="-34"/>
+        <line class="bp-edge bp-edge1" x1="-62" y1="-18" x2="-16" y2="6"/>
+        <line class="bp-edge bp-edge2" x1="-16" y1="-34" x2="34" y2="-20"/>
+        <line class="bp-edge bp-edge3" x1="-16" y1="6" x2="34" y2="20"/>
+        <line class="bp-edge bp-edge4" x1="34" y1="-20" x2="74" y2="0"/>
+        <line class="bp-edge bp-edge5" x1="34" y1="20" x2="74" y2="0"/>
+        <line class="bp-edge bp-edge6" x1="-16" y1="-34" x2="-16" y2="6"/>
+        </g>
+        <g class="bp-node bp-node0" transform="translate(-62,-18)"><circle r="5.5" fill="#0B0F15" stroke="#3B82F6" stroke-width="1.6"/><circle r="2" fill="#2DD4BF"/></g>
+        <g class="bp-node bp-node1" transform="translate(-16,-34)"><circle r="5.5" fill="#0B0F15" stroke="#3B82F6" stroke-width="1.6"/><circle r="2" fill="#2DD4BF"/></g>
+        <g class="bp-node bp-node2" transform="translate(-16,6)"><circle r="5.5" fill="#0B0F15" stroke="#3B82F6" stroke-width="1.6"/><circle r="2" fill="#2DD4BF"/></g>
+        <g class="bp-node bp-node3" transform="translate(34,-20)"><circle r="5.5" fill="#0B0F15" stroke="#3B82F6" stroke-width="1.6"/><circle r="2" fill="#2DD4BF"/></g>
+        <g class="bp-node bp-node4" transform="translate(34,20)"><circle r="5.5" fill="#0B0F15" stroke="#3B82F6" stroke-width="1.6"/><circle r="2" fill="#2DD4BF"/></g>
+        <g class="bp-node bp-node5" transform="translate(74,0)"><circle r="5.5" fill="#0B0F15" stroke="#3B82F6" stroke-width="1.6"/><circle r="2" fill="#2DD4BF"/></g>
+      </g>
+    </g>
+  </g>
+  <g class="act act2">
+    <defs>
+    <clipPath id="codeClip0" class="code-clip0"><rect x="-116" y="-39" width="201.6" height="13"/></clipPath>
+    <clipPath id="codeClip1" class="code-clip1"><rect x="-116" y="-24" width="172.8" height="13"/></clipPath>
+    <clipPath id="codeClip2" class="code-clip2"><rect x="-116" y="-9" width="206.4" height="13"/></clipPath>
+    <clipPath id="codeClip3" class="code-clip3"><rect x="-116" y="6" width="220.8" height="13"/></clipPath>
+    <clipPath id="codeClip4" class="code-clip4"><rect x="-116" y="21" width="4.8" height="13"/></clipPath>
+    </defs>
+    <g transform="translate(712.0,92)">
+      <rect x="-132" y="-56" width="264" height="112" rx="9" fill="#0B0F15" stroke="#30363D"/>
+      <line x1="-132" y1="-38" x2="132" y2="-38" stroke="#30363D"/>
+      <circle cx="-118" cy="-47" r="2.6" fill="#8B949E" opacity=".55"/>
+      <circle cx="-109" cy="-47" r="2.6" fill="#8B949E" opacity=".4"/>
+      <circle cx="-100" cy="-47" r="2.6" fill="#8B949E" opacity=".25"/>
+      <text class="code-file" x="-88" y="-44">probe.ts</text>
+      <g>
+        <g clip-path="url(#codeClip0)"><text class="code" xml:space="preserve" x="-116" y="-30"><tspan class="c-k">export</tspan><tspan class="c-p"> </tspan><tspan class="c-k">async</tspan><tspan class="c-p"> </tspan><tspan class="c-k">function</tspan><tspan class="c-p"> </tspan><tspan class="c-f">probe</tspan><tspan class="c-p">(</tspan><tspan class="c-v">url</tspan><tspan class="c-p">: </tspan><tspan class="c-t">string</tspan><tspan class="c-p">) {</tspan></text></g>
+        <g clip-path="url(#codeClip1)"><text class="code" xml:space="preserve" x="-116" y="-15"><tspan class="c-k">  const</tspan><tspan class="c-v"> started </tspan><tspan class="c-p">= </tspan><tspan class="c-f">performance</tspan><tspan class="c-p">.</tspan><tspan class="c-f">now</tspan><tspan class="c-p">();</tspan></text></g>
+        <g clip-path="url(#codeClip2)"><text class="code" xml:space="preserve" x="-116" y="0"><tspan class="c-k">  const</tspan><tspan class="c-v"> res </tspan><tspan class="c-p">= </tspan><tspan class="c-k">await</tspan><tspan class="c-p"> </tspan><tspan class="c-f">fetch</tspan><tspan class="c-p">(url, { signal });</tspan></text></g>
+        <g clip-path="url(#codeClip3)"><text class="code" xml:space="preserve" x="-116" y="15"><tspan class="c-k">  return</tspan><tspan class="c-v"> { ok</tspan><tspan class="c-p">: res.ok, </tspan><tspan class="c-v">ms</tspan><tspan class="c-p">: elapsed(started) };</tspan></text></g>
+        <g clip-path="url(#codeClip4)"><text class="code" xml:space="preserve" x="-116" y="30"><tspan class="c-p">}</tspan></text></g>
+        <rect class="code-caret" x="-111.2" y="22"
+              width="5" height="11" fill="#2DD4BF" opacity="0"/>
+      </g>
+    </g>
+  </g>
+  <g class="act act3">
+    <g transform="translate(712.0,92)">
+      <rect x="-132" y="-56" width="264" height="112" rx="9" fill="#0B0F15" stroke="#30363D"/>
+      <text class="run-line" x="-118" y="-36" opacity="0"><tspan class="c-p">$</tspan> npm test — running suites…</text>
+      <g class="row0" opacity="0"><text class="mono-s" x="-100" y="-15">Unit tests</text><line x1="20" y1="-18" x2="112" y2="-18" stroke="#21262D" stroke-width="4" stroke-linecap="round"/><line class="bar0" x1="20" y1="-18" x2="112" y2="-18" stroke="#3FB950" stroke-width="4" stroke-linecap="round" stroke-dasharray="92" stroke-dashoffset="92"/><path class="tick0" d="M -118 -18 l 3.5 4 l 7 -9" fill="none" stroke="#3FB950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="18" stroke-dashoffset="18" opacity="0"/></g>
+      <g class="row1" opacity="0"><text class="mono-s" x="-100" y="9">Integration tests</text><line x1="20" y1="6" x2="112" y2="6" stroke="#21262D" stroke-width="4" stroke-linecap="round"/><line class="bar1" x1="20" y1="6" x2="112" y2="6" stroke="#3FB950" stroke-width="4" stroke-linecap="round" stroke-dasharray="92" stroke-dashoffset="92"/><path class="tick1" d="M -118 6 l 3.5 4 l 7 -9" fill="none" stroke="#3FB950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="18" stroke-dashoffset="18" opacity="0"/></g>
+      <g class="row2" opacity="0"><text class="mono-s" x="-100" y="33">Security scan</text><line x1="20" y1="30" x2="112" y2="30" stroke="#21262D" stroke-width="4" stroke-linecap="round"/><line class="bar2" x1="20" y1="30" x2="112" y2="30" stroke="#3FB950" stroke-width="4" stroke-linecap="round" stroke-dasharray="92" stroke-dashoffset="92"/><path class="tick2" d="M -118 30 l 3.5 4 l 7 -9" fill="none" stroke="#3FB950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="18" stroke-dashoffset="18" opacity="0"/></g>
+      <text class="all-green" x="-118" y="46" opacity="0">all checks passed</text>
+    </g>
+  </g>
+  <g class="act act4">
+    <g transform="translate(712.0,92)">
+      <ellipse class="pad-glow" cx="0" cy="48" rx="46" ry="9" fill="url(#flameGlow)" opacity="0"/>
+      <circle class="smoke0" cx="0" cy="46" r="12" fill="#8B949E" opacity="0"/>
+      <circle class="smoke1" cx="0" cy="46" r="14" fill="#8B949E" opacity="0"/>
+      <circle class="smoke2" cx="0" cy="46" r="9" fill="#8B949E" opacity="0"/>
+      <circle class="smoke3" cx="0" cy="46" r="10" fill="#8B949E" opacity="0"/>
+      <rect class="trail" x="-2.5" y="-16" width="5" height="70" rx="2.5" fill="url(#trailGrad)" opacity="0"/>
+      <g class="rocket">
+        <g class="shudder" transform="scale(1.2)">
+          <path d="M 0 -34 C 11 -19, 13 3, 9 20 L -9 20 C -13 3, -11 -19, 0 -34 Z"
+                fill="#161B22" stroke="#E6EDF3" stroke-width="1.4" stroke-linejoin="round"/>
+          <path d="M -9 6 L -20 22 L -9 20 Z" fill="#3B82F6" opacity=".85"/>
+          <path d="M 9 6 L 20 22 L 9 20 Z" fill="#3B82F6" opacity=".85"/>
+          <circle cx="0" cy="-12" r="4.6" fill="#0B0F15" stroke="#2DD4BF" stroke-width="1.4"/>
+          <path class="flame" d="M -6 21 C -3 32, 3 32, 6 21 C 3 42, -3 42, -6 21 Z" fill="url(#flameGrad)" opacity="0"/>
+        </g>
+      </g>
+      <rect x="-30" y="46" width="60" height="3" rx="1.5" fill="#30363D"/>
+      <text class="count count0" x="0" y="-34" opacity="0">3</text>
+      <text class="count count1" x="0" y="-34" opacity="0">2</text>
+      <text class="count count2" x="0" y="-34" opacity="0">1</text>
+    </g>
+  </g>
+  <g class="act act5">
+    <g transform="translate(712.0,92)">
+      <circle class="star0" cx="-118" cy="-44" r="1.3" fill="#E6EDF3" opacity=".3"/>
+      <circle class="star1" cx="-78" cy="-22" r="1.0" fill="#E6EDF3" opacity=".3"/>
+      <circle class="star2" cx="-44" cy="-50" r="1.5" fill="#E6EDF3" opacity=".3"/>
+      <circle class="star3" cx="12" cy="-46" r="1.1" fill="#E6EDF3" opacity=".3"/>
+      <circle class="star4" cx="58" cy="-30" r="1.4" fill="#E6EDF3" opacity=".3"/>
+      <circle class="star5" cx="104" cy="-48" r="1.0" fill="#E6EDF3" opacity=".3"/>
+      <circle class="star6" cx="86" cy="-8" r="1.2" fill="#E6EDF3" opacity=".3"/>
+      <circle class="star7" cx="-104" cy="-6" r="1.1" fill="#E6EDF3" opacity=".3"/>
+      <path class="orbit-ring" d="M -104 66 A 104 40 0 1 1 104 66 A 104 40 0 1 1 -104 66" fill="none" stroke="#2DD4BF"
+            stroke-width="1" stroke-dasharray="340" opacity="0"/>
+      <g clip-path="url(#earthClip)">
+        <circle cx="0" cy="88" r="56" fill="url(#earthGrad)"/>
+        <g class="earth-spin" opacity=".5" fill="#3FB950">
+          <path d="M -40 52 q 14 -10 30 -4 q 12 5 6 16 q -10 12 -26 6 q -14 -6 -10 -18 z"/>
+          <path d="M 10 66 q 18 -8 30 4 q 8 10 -4 16 q -16 6 -26 -4 q -8 -8 0 -16 z"/>
+          <path d="M 56 44 q 16 -6 26 6 q 6 8 -4 14 q -14 6 -22 -6 q -6 -8 0 -14 z"/>
+          <path d="M 100 60 q 16 -6 26 6 q 6 8 -4 14 q -14 6 -22 -6 q -6 -8 0 -14 z"/>
+        </g>
+      </g>
+      <circle class="earth-halo" cx="0" cy="88" r="57.5" fill="none" stroke="#2DD4BF" stroke-width="2.5"
+              opacity=".3" filter="url(#soft)"/>
+      <g>
+        <g>
+          <animateMotion dur="6s" repeatCount="indefinite" rotate="auto" path="M -104 66 A 104 40 0 1 1 104 66 A 104 40 0 1 1 -104 66"/>
+          <g transform="translate(0,0)">
+            <rect x="-4" y="-3.5" width="8" height="7" rx="1.6" fill="#161B22" stroke="#E6EDF3" stroke-width="1"/>
+            <rect x="-11" y="-2.4" width="6" height="4.8" rx="1" fill="#3B82F6"/>
+            <rect x="5" y="-2.4" width="6" height="4.8" rx="1" fill="#3B82F6"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g class="act act6">
+    <g transform="translate(712.0,92)">
+      <line class="link0" x1="-108" y1="-30" x2="0" y2="0" stroke="#3B82F6" stroke-width="1" stroke-dasharray="160" opacity="0"/>
+      <circle r="1.8" fill="#3FB950" opacity=".9"><animateMotion dur="1.6s" begin="0.00s" repeatCount="indefinite" path="M -108 -30 L 0 0"/></circle>
+      <line class="link1" x1="-70" y1="22" x2="0" y2="0" stroke="#3B82F6" stroke-width="1" stroke-dasharray="160" opacity="0"/>
+      <circle r="1.8" fill="#3FB950" opacity=".9"><animateMotion dur="1.6s" begin="0.20s" repeatCount="indefinite" path="M -70 22 L 0 0"/></circle>
+      <line class="link2" x1="-24" y1="-40" x2="0" y2="0" stroke="#3B82F6" stroke-width="1" stroke-dasharray="160" opacity="0"/>
+      <circle r="1.8" fill="#3FB950" opacity=".9"><animateMotion dur="1.6s" begin="0.40s" repeatCount="indefinite" path="M -24 -40 L 0 0"/></circle>
+      <line class="link3" x1="26" y1="-38" x2="0" y2="0" stroke="#3B82F6" stroke-width="1" stroke-dasharray="160" opacity="0"/>
+      <circle r="1.8" fill="#3FB950" opacity=".9"><animateMotion dur="1.6s" begin="0.60s" repeatCount="indefinite" path="M 26 -38 L 0 0"/></circle>
+      <line class="link4" x1="74" y1="20" x2="0" y2="0" stroke="#3B82F6" stroke-width="1" stroke-dasharray="160" opacity="0"/>
+      <circle r="1.8" fill="#3FB950" opacity=".9"><animateMotion dur="1.6s" begin="0.80s" repeatCount="indefinite" path="M 74 20 L 0 0"/></circle>
+      <line class="link5" x1="108" y1="-26" x2="0" y2="0" stroke="#3B82F6" stroke-width="1" stroke-dasharray="160" opacity="0"/>
+      <circle r="1.8" fill="#3FB950" opacity=".9"><animateMotion dur="1.6s" begin="1.00s" repeatCount="indefinite" path="M 108 -26 L 0 0"/></circle>
+      <line class="link6" x1="-108" y1="24" x2="0" y2="0" stroke="#3B82F6" stroke-width="1" stroke-dasharray="160" opacity="0"/>
+      <circle r="1.8" fill="#3FB950" opacity=".9"><animateMotion dur="1.6s" begin="1.20s" repeatCount="indefinite" path="M -108 24 L 0 0"/></circle>
+      <line class="link7" x1="60" y1="-8" x2="0" y2="0" stroke="#3B82F6" stroke-width="1" stroke-dasharray="160" opacity="0"/>
+      <circle r="1.8" fill="#3FB950" opacity=".9"><animateMotion dur="1.6s" begin="1.40s" repeatCount="indefinite" path="M 60 -8 L 0 0"/></circle>
+      <circle class="hub-pulse" r="16" fill="none" stroke="#3FB950" stroke-width="1.4" opacity="0"/>
+      <circle r="15" fill="#0B0F15" stroke="#3FB950" stroke-width="1.8"/>
+      <path d="M -8 -3 h 16 M -8 3 h 16" stroke="#3FB950" stroke-width="1.2" opacity=".8"/>
+      <circle r="6.5" fill="none" stroke="#3FB950" stroke-width="1.2" opacity=".8"/>
+      <g class="user0" transform="translate(-108,-30)" opacity="0"><circle cy="-4" r="3.4" fill="#2DD4BF"/><path d="M -6 5 a 6 6 0 0 1 12 0 z" fill="#2DD4BF" opacity=".8"/><circle r="10" fill="none" stroke="#2DD4BF" stroke-width=".8" opacity=".25"/></g>
+      <g class="user1" transform="translate(-70,22)" opacity="0"><circle cy="-4" r="3.4" fill="#2DD4BF"/><path d="M -6 5 a 6 6 0 0 1 12 0 z" fill="#2DD4BF" opacity=".8"/><circle r="10" fill="none" stroke="#2DD4BF" stroke-width=".8" opacity=".25"/></g>
+      <g class="user2" transform="translate(-24,-40)" opacity="0"><circle cy="-4" r="3.4" fill="#2DD4BF"/><path d="M -6 5 a 6 6 0 0 1 12 0 z" fill="#2DD4BF" opacity=".8"/><circle r="10" fill="none" stroke="#2DD4BF" stroke-width=".8" opacity=".25"/></g>
+      <g class="user3" transform="translate(26,-38)" opacity="0"><circle cy="-4" r="3.4" fill="#2DD4BF"/><path d="M -6 5 a 6 6 0 0 1 12 0 z" fill="#2DD4BF" opacity=".8"/><circle r="10" fill="none" stroke="#2DD4BF" stroke-width=".8" opacity=".25"/></g>
+      <g class="user4" transform="translate(74,20)" opacity="0"><circle cy="-4" r="3.4" fill="#2DD4BF"/><path d="M -6 5 a 6 6 0 0 1 12 0 z" fill="#2DD4BF" opacity=".8"/><circle r="10" fill="none" stroke="#2DD4BF" stroke-width=".8" opacity=".25"/></g>
+      <g class="user5" transform="translate(108,-26)" opacity="0"><circle cy="-4" r="3.4" fill="#2DD4BF"/><path d="M -6 5 a 6 6 0 0 1 12 0 z" fill="#2DD4BF" opacity=".8"/><circle r="10" fill="none" stroke="#2DD4BF" stroke-width=".8" opacity=".25"/></g>
+      <g class="user6" transform="translate(-108,24)" opacity="0"><circle cy="-4" r="3.4" fill="#2DD4BF"/><path d="M -6 5 a 6 6 0 0 1 12 0 z" fill="#2DD4BF" opacity=".8"/><circle r="10" fill="none" stroke="#2DD4BF" stroke-width=".8" opacity=".25"/></g>
+      <g class="user7" transform="translate(60,-8)" opacity="0"><circle cy="-4" r="3.4" fill="#2DD4BF"/><path d="M -6 5 a 6 6 0 0 1 12 0 z" fill="#2DD4BF" opacity=".8"/><circle r="10" fill="none" stroke="#2DD4BF" stroke-width=".8" opacity=".25"/></g>
+    </g>
+  </g>
+  <g class="act act7">
+    <g transform="translate(712.0,92)">
+      <line class="axis" x1="-116" y1="53" x2="116" y2="53" stroke="#30363D" opacity="0"/>
+      <line class="grow0" x1="-96" y1="44" x2="-96" y2="30" stroke="url(#barGrad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="14" stroke-dashoffset="14"/>
+      <line class="grow1" x1="-66" y1="44" x2="-66" y2="22" stroke="url(#barGrad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="22" stroke-dashoffset="22"/>
+      <line class="grow2" x1="-36" y1="44" x2="-36" y2="14" stroke="url(#barGrad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="30" stroke-dashoffset="30"/>
+      <line class="grow3" x1="-6" y1="44" x2="-6" y2="17" stroke="url(#barGrad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="27" stroke-dashoffset="27"/>
+      <line class="grow4" x1="24" y1="44" x2="24" y2="2" stroke="url(#barGrad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="42" stroke-dashoffset="42"/>
+      <line class="grow5" x1="54" y1="44" x2="54" y2="-11" stroke="url(#barGrad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="55" stroke-dashoffset="55"/>
+      <line class="grow6" x1="84" y1="44" x2="84" y2="-26" stroke="url(#barGrad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="70" stroke-dashoffset="70"/>
+      <path class="trend" d="M -96 20 L -66 12 L -36 4 L -6 7 L 24 -8 L 54 -21 L 84 -36" fill="none" stroke="#2DD4BF" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="260" opacity="0"/>
+      <circle class="seed" r="5" fill="#2DD4BF" filter="url(#soft)" opacity="0"/>
+    </g>
+  </g>
+  </g>
+  <rect x="548.5" y="24.5" width="327" height="171" rx="12" fill="none" stroke="#30363D"/>
+    <text class="lbl lbl0" x="566" y="172">IDEA</text>
+    <text class="idx lbl0" x="858" y="172" text-anchor="end">01 / 08</text>
+    <text class="lbl lbl1" x="566" y="172">BLUEPRINT</text>
+    <text class="idx lbl1" x="858" y="172" text-anchor="end">02 / 08</text>
+    <text class="lbl lbl2" x="566" y="172">CODE</text>
+    <text class="idx lbl2" x="858" y="172" text-anchor="end">03 / 08</text>
+    <text class="lbl lbl3" x="566" y="172">TEST</text>
+    <text class="idx lbl3" x="858" y="172" text-anchor="end">04 / 08</text>
+    <text class="lbl lbl4" x="566" y="172">LAUNCH</text>
+    <text class="idx lbl4" x="858" y="172" text-anchor="end">05 / 08</text>
+    <text class="lbl lbl5" x="566" y="172">ORBIT</text>
+    <text class="idx lbl5" x="858" y="172" text-anchor="end">06 / 08</text>
+    <text class="lbl lbl6" x="566" y="172">REAL USERS</text>
+    <text class="idx lbl6" x="858" y="172" text-anchor="end">07 / 08</text>
+    <text class="lbl lbl7" x="566" y="172">GROWTH</text>
+    <text class="idx lbl7" x="858" y="172" text-anchor="end">08 / 08</text>
+  <line x1="566" y1="184" x2="858" y2="184" stroke="#21262D" stroke-width="1.5"/>
+  <line class="rail-fill" x1="566" y1="184" x2="858" y2="184"
+        stroke="#2DD4BF" stroke-width="1.5" stroke-dasharray="292" stroke-dashoffset="292"/>
+    <circle class="tk tk0" cx="584.2" cy="184" r="1.6" opacity=".25"/>
+    <circle class="tk tk1" cx="620.8" cy="184" r="1.6" opacity=".25"/>
+    <circle class="tk tk2" cx="657.2" cy="184" r="1.6" opacity=".25"/>
+    <circle class="tk tk3" cx="693.8" cy="184" r="1.6" opacity=".25"/>
+    <circle class="tk tk4" cx="730.2" cy="184" r="1.6" opacity=".25"/>
+    <circle class="tk tk5" cx="766.8" cy="184" r="1.6" opacity=".25"/>
+    <circle class="tk tk6" cx="803.2" cy="184" r="1.6" opacity=".25"/>
+    <circle class="tk tk7" cx="839.8" cy="184" r="1.6" opacity=".25"/>
 </svg>

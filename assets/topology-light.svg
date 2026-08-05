@@ -8,7 +8,6 @@
     .head { fill: #D0D7DE }
     .feed { fill: none; stroke: #E4E8ED; stroke-width: 1.5; stroke-dasharray: 3 5 }
     .pkt { fill: #1A7F37; opacity: 0 }
-    .loop { fill: none; stroke: #1A7F37; stroke-width: 1.5; opacity: 0.5 }
     @media (prefers-reduced-motion: no-preference) {
       @keyframes blip { 0% { opacity: 0 } 12%,88% { opacity: 1 } 100% { opacity: 0 } }
       @keyframes march { to { stroke-dashoffset: -16 } }

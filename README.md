@@ -3,8 +3,10 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NPKpadala/NPKpadala/main/assets/header-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/NPKpadala/NPKpadala/main/assets/header-light.svg">
-  <img src="https://raw.githubusercontent.com/NPKpadala/NPKpadala/main/assets/header-dark.svg" alt="Praveen Kumar Padala — Infrastructure Operations &amp; Systems Engineer" width="100%">
+  <img src="https://raw.githubusercontent.com/NPKpadala/NPKpadala/main/assets/header-dark.svg" alt="Praveen Kumar Padala — Infrastructure Operations &amp; Systems Engineer. Looping animation of the delivery pipeline: idea, blueprint, code, test, launch, orbit, real users, growth." width="100%">
 </picture>
+
+<sub>idea → blueprint → code → tests → launch → orbit → <b>real users</b> → <b>growth</b> · hand-authored SVG, no JavaScript and no third-party image service</sub>
 
 <a href="https://npkpadala.com"><img src="https://img.shields.io/badge/portfolio-npkpadala.com-3FB950?style=flat-square&labelColor=161B22" alt="Portfolio"></a>
 <a href="mailto:praveen.padala.2001@gmail.com"><img src="https://img.shields.io/badge/email-praveen.padala.2001-8B949E?style=flat-square&labelColor=161B22" alt="Email"></a>
@@ -26,9 +28,10 @@ before a client notices.
 - **I operate what I ship.** Multi-tenant SaaS on OCI nginx, PM2, Docker, PostgreSQL per tenant, nightly verified dumps.
 - **Automate anything done twice.** Cron-driven ops, self-healing services, scripted deploys, zero-touch alerting.
 - **Observability I built rather than bought** — [Ops Monitor](https://github.com/NPKpadala/-ops-monitor) polls hosts and apps every 5s and pages me on Telegram.
+- **AI where it earns its place.** LLM-backed extraction in [Job Alert Bot](https://github.com/NPKpadala/job-alert-bot) (Gemini), agent-assisted scripting and review across my own repos, and AI-drafted triage on alerts. Treated like any other dependency: rate-limited, cost-capped, and never the last word on a production change.
 - **Document pipelines** — OCR and extraction frameworks that turn unstructured files into clean APIs.
 
-Currently going deeper on distributed systems, multi-tenant architecture and performance work.
+Currently going deeper on distributed systems, multi-tenant architecture, performance work, and on where AI genuinely belongs in an ops loop — retrieval over runbooks, anomaly summaries, and agents that draft the fix while a human still approves it.
 
 ## Toolkit
 
@@ -38,6 +41,7 @@ Currently going deeper on distributed systems, multi-tenant architecture and per
 | **Serving** | `nginx` `Gunicorn` `PM2` `Docker` `FastAPI` `Flask` `Node.js` |
 | **Data & async** | `PostgreSQL` `Redis` `Celery` |
 | **Cloud & CI** | `Oracle Cloud Infrastructure` `Render` `GitHub Actions` `Telegram alerting` |
+| **AI in the loop** | `Google Gemini` `Claude` `OCR / document extraction` `retrieval over runbooks` `agent-assisted scripting` |
 
 ## How it fits together
 
