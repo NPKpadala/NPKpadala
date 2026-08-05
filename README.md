@@ -18,12 +18,12 @@
 
 ## About
 
-I run infrastructure for production systems that other people depend on — provisioning, hardening,
+I run infrastructure for production systems that other people depend on  provisioning, hardening,
 monitoring, backups and recovery on Linux and Oracle Cloud. Most of what I build is the unglamorous
 half: the deploy that doesn't need babysitting, the backup that gets verified, the alert that fires
 before a client notices.
 
-- **I operate what I ship.** Multi-tenant SaaS on OCI — nginx, PM2, Docker, PostgreSQL per tenant, nightly verified dumps.
+- **I operate what I ship.** Multi-tenant SaaS on OCI nginx, PM2, Docker, PostgreSQL per tenant, nightly verified dumps.
 - **Automate anything done twice.** Cron-driven ops, self-healing services, scripted deploys, zero-touch alerting.
 - **Observability I built rather than bought** — [Ops Monitor](https://github.com/NPKpadala/-ops-monitor) polls hosts and apps every 5s and pages me on Telegram.
 - **Document pipelines** — OCR and extraction frameworks that turn unstructured files into clean APIs.
