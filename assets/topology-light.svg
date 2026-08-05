@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 270" width="860" height="270" role="img" aria-label="Production topology: edge, app tier, async workers and data, all watched by a self-built observability loop">
+  <title>Production topology</title>
+  <style>
+    .h { font: 600 13px ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; fill: #1F2328; letter-spacing: 0.6px }
+    .s { font: 400 12px ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; fill: #59636E }
+    .cap { font: 500 11px ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; fill: #1A7F37; letter-spacing: 1.8px }
+    .link { fill: none; stroke: #D0D7DE; stroke-width: 1.5 }
+    .head { fill: #D0D7DE }
+    .feed { fill: none; stroke: #E4E8ED; stroke-width: 1.5; stroke-dasharray: 3 5 }
+    .pkt { fill: #1A7F37; opacity: 0 }
+    .loop { fill: none; stroke: #1A7F37; stroke-width: 1.5; opacity: 0.5 }
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes blip { 0% { opacity: 0 } 12%,88% { opacity: 1 } 100% { opacity: 0 } }
+      @keyframes march { to { stroke-dashoffset: -16 } }
+      .pkt { animation: blip 2.6s linear infinite }
+      .feed { animation: march 1.4s linear infinite }
+    }
+  </style>
+
+  <rect x="0.5" y="0.5" width="859" height="269" rx="12" fill="#FFFFFF" stroke="#D0D7DE"/>
+  <text class="cap" x="20" y="26">REQUEST PATH</text>
+
+  <g>
+    <rect x="20" y="44" width="186" height="84" rx="10" fill="#F6F8FA" stroke="#D0D7DE"/>
+    <text class="h" x="36" y="72">EDGE</text>
+    <text class="s" x="36" y="94">nginx · TLS</text>
+    <text class="s" x="36" y="111">rate limits</text>
+  </g>
+  <g>
+    <rect x="230" y="44" width="186" height="84" rx="10" fill="#F6F8FA" stroke="#D0D7DE"/>
+    <text class="h" x="246" y="72">APP TIER</text>
+    <text class="s" x="246" y="94">FastAPI · Flask</text>
+    <text class="s" x="246" y="111">Node · Gunicorn · PM2</text>
+  </g>
+  <g>
+    <rect x="440" y="44" width="186" height="84" rx="10" fill="#F6F8FA" stroke="#D0D7DE"/>
+    <text class="h" x="456" y="72">ASYNC</text>
+    <text class="s" x="456" y="94">Celery workers</text>
+    <text class="s" x="456" y="111">Redis broker</text>
+  </g>
+  <g>
+    <rect x="650" y="44" width="186" height="84" rx="10" fill="#F6F8FA" stroke="#D0D7DE"/>
+    <text class="h" x="666" y="72">DATA</text>
+    <text class="s" x="666" y="94">PostgreSQL per tenant</text>
+    <text class="s" x="666" y="111">verified nightly dumps</text>
+  </g>
+
+  <path id="link0" class="link" d="M 206 86.0 H 224"/>
+  <path class="head" d="M 222 82.0 l 6 4 l -6 4 z"/>
+  <circle class="pkt" r="3">
+    <animateMotion dur="2.6s" begin="0.00s" repeatCount="indefinite" path="M 206 86.0 H 224"/>
+  </circle>
+  <path id="link1" class="link" d="M 416 86.0 H 434"/>
+  <path class="head" d="M 432 82.0 l 6 4 l -6 4 z"/>
+  <circle class="pkt" r="3">
+    <animateMotion dur="2.6s" begin="0.45s" repeatCount="indefinite" path="M 416 86.0 H 434"/>
+  </circle>
+  <path id="link2" class="link" d="M 626 86.0 H 644"/>
+  <path class="head" d="M 642 82.0 l 6 4 l -6 4 z"/>
+  <circle class="pkt" r="3">
+    <animateMotion dur="2.6s" begin="0.90s" repeatCount="indefinite" path="M 626 86.0 H 644"/>
+  </circle>
+
+  <path class="feed" d="M 113.0 128 V 196"/>
+  <path class="feed" d="M 323.0 128 V 196"/>
+  <path class="feed" d="M 533.0 128 V 196"/>
+  <path class="feed" d="M 743.0 128 V 196"/>
+
+  <g>
+    <rect x="20" y="196" width="816" height="52" rx="10" fill="#F6F8FA" stroke="#D0D7DE"/>
+    <text class="cap" x="36" y="214">OBSERVABILITY LOOP · SELF-BUILT</text>
+    <text class="s" x="122" y="232" text-anchor="middle">collector — 5s host + app</text>
+    <path class="link" d="M 210 227 h 10"/>
+    <path class="head" d="M 218 223 l 6 4 l -6 4 z"/>
+    <text class="s" x="326" y="232" text-anchor="middle">ingest API</text>
+    <path class="link" d="M 414 227 h 10"/>
+    <path class="head" d="M 422 223 l 6 4 l -6 4 z"/>
+    <text class="s" x="530" y="232" text-anchor="middle">threshold eval</text>
+    <path class="link" d="M 618 227 h 10"/>
+    <path class="head" d="M 626 223 l 6 4 l -6 4 z"/>
+    <text class="s" x="734" y="232" text-anchor="middle">Telegram page · live dashboard</text>
+  </g>
+</svg>
