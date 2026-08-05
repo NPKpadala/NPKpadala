@@ -29,7 +29,7 @@ README = os.environ.get("README_PATH", "README.md")
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 WAKA_KEY = os.environ.get("WAKATIME_API_KEY", "")
 
-MAX_ROWS = 8
+MAX_ROWS = 6
 TIMEOUT = 20
 
 # ─── probe targets ──────────────────────────────────────────────────────────
@@ -222,44 +222,36 @@ def build_telemetry(results, current: str) -> str | None:
             *rows,
             "",
             "<sub>Two attempts before anything is called unreachable, and a run where"
-            " <em>every</em> target fails is treated as a broken prober rather than a"
-            " simultaneous outage. API-first hosts are judged on reachability, so a"
-            " <code>404</code> at <code>/</code> reads green — the origin answered and"
-            " routed. A <code>5xx</code> does not.</sub>",
+            " every target fails is read as a broken prober, not a simultaneous"
+            " outage.</sub>",
         ]
     )
 
 
-def build_banner(results) -> str | None:
-    """NOC-style header block. The status line is measured, never hardcoded."""
+def build_banner(results) -> str:
+    """One measured status line under the header.
+
+    This used to be a boxed ASCII "NOC panel" listing the whole stack. The stack
+    doesn't change hourly, so most of that box was static text dressed up as
+    telemetry — the README carries those facts as prose now. What belongs here is
+    the one thing that *is* live: whether everything is up, and when that was last
+    checked.
+    """
     if results:
         down = [r[0] for r in results if r[2] == "down"]
         degraded = [r[0] for r in results if r[2] in ("warn", "slow")]
         if down:
-            status = f"🔴 DEGRADED — {', '.join(down)} unreachable"
+            status = f"🔴 **Degraded** — {', '.join(down)} unreachable"
         elif degraded:
-            status = f"🟡 PARTIAL — {', '.join(degraded)} responding slowly"
+            status = f"🟡 **Partial** — {', '.join(degraded)} responding slowly"
         else:
-            status = f"🟢 ALL {len(results)} MONITORED SERVICES OPERATIONAL"
+            plural = "" if len(results) == 1 else "s"
+            status = f"🟢 **All {len(results)} monitored service{plural} operational**"
     else:
-        status = "⚪ NO PROBE DATA — awaiting next scheduled run"
+        status = "⚪ **No probe data** — awaiting the next scheduled run"
 
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    return "\n".join(
-        [
-            "```console",
-            "[ OPS TELEMETRY — npkpadala ]",
-            "-" * 78,
-            "HOST        : Oracle Cloud Infrastructure · Oracle Linux (aarch64)",
-            "RUNTIME     : PM2 process manager · Docker · nginx reverse proxy",
-            "DATA        : PostgreSQL (per-tenant) · Redis · Celery workers",
-            "OBSERVE     : self-built Ops Monitor · 5s host+app polling · Telegram paging",
-            f"STATUS      : {status}",
-            f"LAST PROBE  : {stamp}",
-            "-" * 78,
-            "```",
-        ]
-    )
+    return f"> {status} · probed `{stamp}`"
 
 
 # ─── activity ───────────────────────────────────────────────────────────────
@@ -323,18 +315,17 @@ def build_activity() -> str | None:
         return None
 
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    body = "\n".join(
+    # A plain log tail, not a fake shell session: the old block opened with an
+    # invented `$ npk-ops …` command, which is set dressing for a tool nobody
+    # can run. The rows are real; the prompt was not.
+    return "\n".join(
         [
-            "```console",
-            f"$ npk-ops --tail activity --user {USER}",
-            "",
+            "```text",
             *rows,
-            "",
-            f"# stream synced {stamp} · refreshed every 6h by GitHub Actions",
             "```",
+            f"<sub>Synced {stamp} · refreshed every 6h by GitHub Actions.</sub>",
         ]
     )
-    return body
 
 
 # ─── wakatime (optional) ────────────────────────────────────────────────────
@@ -357,7 +348,9 @@ def build_waka() -> str | None:
         filled = round(pct / 5)  # 20-cell bar
         rows.append(f"{lang.get('name', '')[:14]:<14} {lang.get('text', ''):>16}  {'█' * filled}{'░' * (20 - filled)} {pct:5.1f}%")
 
-    return "\n".join(["```console", "$ wakatime --last-7-days", "", *rows, "```"])
+    return "\n".join(
+        ["### Last 7 days", "", "```text", *rows, "```"]
+    )
 
 
 # ─── main ───────────────────────────────────────────────────────────────────

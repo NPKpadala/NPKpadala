@@ -1,5 +1,6 @@
-# Generates the animated contribution-grid snake in the profile's neon palette
-# and publishes the SVGs to the `output` branch, which the README links to.
+# Generates the animated contribution-grid snake in the profile palette and
+# publishes the SVGs to the `output` branch, which the README links to.
+# Colours track .github/scripts/build_assets.py — keep the two in step.
 name: Contribution snake
 
 on:
@@ -27,8 +28,8 @@ jobs:
           # Colours are literal hex — no space before '#', so YAML does not treat it
           # as a comment. color_dots takes exactly 5 stops, lowest → highest.
           outputs: |
-            dist/github-contribution-grid-snake.svg?color_snake=#00E5FF&color_dots=#ebedf0,#c6e48b,#7bc96f,#239a3b,#196127
-            dist/github-contribution-grid-snake-dark.svg?color_snake=#00E5FF&color_dots=#161b22,#0e4429,#006d32,#26a641,#39FF14
+            dist/github-contribution-grid-snake.svg?color_snake=#0969DA&color_dots=#EBEDF0,#ACEEBB,#6FDD8B,#2DA44E,#1A7F37
+            dist/github-contribution-grid-snake-dark.svg?color_snake=#58A6FF&color_dots=#161B22,#0E4429,#006D32,#26A641,#3FB950
 
       - name: Publish to the output branch
         uses: crazy-max/ghaction-github-pages@v4
