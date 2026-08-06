@@ -15,7 +15,7 @@
 </div>
 
 <!-- START_SECTION:banner -->
-> 🟢 **All 2 monitored services operational** · probed `2026-08-05 20:40 UTC`
+> 🟢 **All 2 monitored services operational** · probed `2026-08-06 03:44 UTC`
 <!-- END_SECTION:banner -->
 
 ## About
@@ -71,13 +71,13 @@ Currently going deeper on distributed systems, multi-tenant architecture, perfor
 ## Live telemetry
 
 <!-- START_SECTION:telemetry -->
-<!-- probe:2026-08-05T20:40:55Z|Portfolio Website=up,PDFWala=up -->
-> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-08-05 20:40 UTC`
+<!-- probe:2026-08-06T03:44:31Z|Portfolio Website=up,PDFWala=up -->
+> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-08-06 03:44 UTC`
 
 | Service | Endpoint | Health | Latency |
 |:---|:---|:---|:---|
-| **Portfolio Website** | `npkpadala.com` | 🟢 `OPERATIONAL` `200` | `1645 ms` |
-| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `1390 ms` |
+| **Portfolio Website** | `npkpadala.com` | 🟢 `OPERATIONAL` `200` | `1558 ms` |
+| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `2184 ms` |
 
 <sub>Two attempts before anything is called unreachable, and a run where every target fails is read as a broken prober, not a simultaneous outage.</sub>
 <!-- END_SECTION:telemetry -->
@@ -102,14 +102,14 @@ Currently going deeper on distributed systems, multi-tenant architecture, perfor
 
 <!-- START_SECTION:activity -->
 ```text
-   6h ago  pr      NPKpadala          #4 merged
-   6h ago  pr      NPKpadala          #4 opened
-   6h ago  create  NPKpadala          branch claude/hero-idea-to-growth
-   6h ago  pr      NPKpadala          #3 merged
-   6h ago  pr      NPKpadala          #3 opened
-   6h ago  create  NPKpadala          branch claude/profile-clean-rede…
+   9h ago  pr      NPKpadala          #4 merged
+   9h ago  pr      NPKpadala          #4 opened
+   9h ago  create  NPKpadala          branch claude/hero-idea-to-growth
+  10h ago  pr      NPKpadala          #3 merged
+  10h ago  pr      NPKpadala          #3 opened
+  10h ago  create  NPKpadala          branch claude/profile-clean-rede…
 ```
-<sub>Synced 2026-08-06 00:12 UTC · refreshed every 6h by GitHub Actions.</sub>
+<sub>Synced 2026-08-06 03:44 UTC · refreshed every 6h by GitHub Actions.</sub>
 <!-- END_SECTION:activity -->
 
 <!-- Optional: add a WAKATIME_API_KEY repo secret and this fills with last-7-day language stats. -->
