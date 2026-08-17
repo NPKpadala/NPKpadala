@@ -15,7 +15,7 @@
 </div>
 
 <!-- START_SECTION:banner -->
-> 🔴 **Degraded** — PDFWala unreachable · probed `2026-08-17 13:10 UTC`
+> 🟢 **All 2 monitored services operational** · probed `2026-08-17 13:55 UTC`
 <!-- END_SECTION:banner -->
 
 ## About
@@ -71,13 +71,13 @@ Currently going deeper on distributed systems, multi-tenant architecture, perfor
 ## Live telemetry
 
 <!-- START_SECTION:telemetry -->
-<!-- probe:2026-08-17T13:10:55Z|Portfolio Website=slow,PDFWala=down -->
-> Probed from a GitHub Actions runner · **1/2 operational** · last check `2026-08-17 13:10 UTC`
+<!-- probe:2026-08-17T13:55:59Z|Portfolio Website=up,PDFWala=up -->
+> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-08-17 13:55 UTC`
 
 | Service | Endpoint | Health | Latency |
 |:---|:---|:---|:---|
-| **Portfolio Website** | `npkpadala.com` | 🟡 `SLOW` `200` | `7031 ms` |
-| **PDFWala** | `pdf.npkpadala.com/` | 🔴 `UNREACHABLE` `no answer` | `—` |
+| **Portfolio Website** | `npkpadala.com` | 🟢 `OPERATIONAL` `200` | `2712 ms` |
+| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `1258 ms` |
 
 <sub>Two attempts before anything is called unreachable, and a run where every target fails is read as a broken prober, not a simultaneous outage.</sub>
 <!-- END_SECTION:telemetry -->
@@ -109,7 +109,7 @@ Currently going deeper on distributed systems, multi-tenant architecture, perfor
   11d ago  pr      NPKpadala          #4 opened
   11d ago  create  NPKpadala          branch claude/hero-idea-to-growth
 ```
-<sub>Synced 2026-08-17 13:10 UTC · refreshed every 6h by GitHub Actions.</sub>
+<sub>Synced 2026-08-17 13:56 UTC · refreshed every 6h by GitHub Actions.</sub>
 <!-- END_SECTION:activity -->
 
 <!-- Optional: add a WAKATIME_API_KEY repo secret and this fills with last-7-day language stats. -->
