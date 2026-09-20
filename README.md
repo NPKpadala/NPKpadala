@@ -15,7 +15,7 @@
 </div>
 
 <!-- START_SECTION:banner -->
-> 🟢 **All 2 monitored services operational** · probed `2026-09-19 20:48 UTC`
+> 🟢 **All 2 monitored services operational** · probed `2026-09-20 06:23 UTC`
 <!-- END_SECTION:banner -->
 
 ## About
@@ -71,13 +71,13 @@ Currently going deeper on distributed systems, multi-tenant architecture, perfor
 ## Live telemetry
 
 <!-- START_SECTION:telemetry -->
-<!-- probe:2026-09-19T20:48:38Z|Portfolio Website=up,PDFWala=up -->
-> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-09-19 20:48 UTC`
+<!-- probe:2026-09-20T06:23:19Z|Portfolio Website=up,PDFWala=up -->
+> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-09-20 06:23 UTC`
 
 | Service | Endpoint | Health | Latency |
 |:---|:---|:---|:---|
-| **Portfolio Website** | `npkpadala.com` | 🟢 `OPERATIONAL` `200` | `1408 ms` |
-| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `1326 ms` |
+| **Portfolio Website** | `npkpadala.com` | 🟢 `OPERATIONAL` `200` | `1528 ms` |
+| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `1379 ms` |
 
 <sub>Two attempts before anything is called unreachable, and a run where every target fails is read as a broken prober, not a simultaneous outage.</sub>
 <!-- END_SECTION:telemetry -->
@@ -102,13 +102,13 @@ Currently going deeper on distributed systems, multi-tenant architecture, perfor
 
 <!-- START_SECTION:activity -->
 ```text
-  19h ago  pr      -ops-monitor       #3 opened
-  19h ago  create  -ops-monitor       branch fix/007-drop-redundant-in…
-  19h ago  pr      -ops-monitor       #2 merged
-  19h ago  pr      -ops-monitor       #2 opened
-  19h ago  create  -ops-monitor       branch fix/prune-net-interface-m…
+   1d ago  pr      -ops-monitor       #3 opened
+   1d ago  create  -ops-monitor       branch fix/007-drop-redundant-in…
+   1d ago  pr      -ops-monitor       #2 merged
+   1d ago  pr      -ops-monitor       #2 opened
+   1d ago  create  -ops-monitor       branch fix/prune-net-interface-m…
 ```
-<sub>Synced 2026-09-20 01:16 UTC · refreshed every 6h by GitHub Actions.</sub>
+<sub>Synced 2026-09-20 06:23 UTC · refreshed every 6h by GitHub Actions.</sub>
 <!-- END_SECTION:activity -->
 
 <!-- Optional: add a WAKATIME_API_KEY repo secret and this fills with last-7-day language stats. -->
