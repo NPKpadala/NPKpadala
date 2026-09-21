@@ -27,7 +27,7 @@ before a client notices.
 
 - **I operate what I ship.** Multi-tenant SaaS on OCI nginx, PM2, Docker, PostgreSQL per tenant, nightly verified dumps.
 - **Automate anything done twice.** Cron-driven ops, self-healing services, scripted deploys, zero-touch alerting.
-- **Observability I built rather than bought** — [Ops Monitor](https://github.com/NPKpadala/-ops-monitor) polls hosts and apps every 5s and pages me on Telegram.
+- **Observability I built rather than bought** — Ops Monitor polls hosts and apps every 5s and pages me on Telegram.
 - **AI where it earns its place.** LLM-backed extraction in [Job Alert Bot](https://github.com/NPKpadala/job-alert-bot) (Gemini), agent-assisted scripting and review across my own repos, and AI-drafted triage on alerts. Treated like any other dependency: rate-limited, cost-capped, and never the last word on a production change.
 - **Document pipelines** — OCR and extraction frameworks that turn unstructured files into clean APIs.
 
@@ -55,14 +55,14 @@ Currently going deeper on distributed systems, multi-tenant architecture, perfor
 
 </div>
 
-<sub>Edge to storage, and the loop that watches all of it. The loop is <a href="https://github.com/NPKpadala/-ops-monitor">Ops Monitor</a> — read-only collectors, threshold evaluation, Telegram paging, live dashboard.</sub>
+<sub>Edge to storage, and the loop that watches all of it. The loop is Ops Monitor — read-only collectors, threshold evaluation, Telegram paging, live dashboard.</sub>
 
 ## Selected work
 
 | Project | What it does | Stack |
 |:---|:---|:---|
-| [**PDFWala**](https://github.com/NPKpadala/pdfwala) | PDF-processing platform with an async job pipeline | `Flask` `Celery` `Redis` `Docker` |
-| [**Ops Monitor**](https://github.com/NPKpadala/-ops-monitor) | App and infra monitoring, alerting and support tickets | `Node.js` `PM2` `Telegram` |
+| [**PDFWala**](https://pdf.npkpadala.com) | PDF-processing platform with an async job pipeline | `Flask` `Celery` `Redis` `Docker` |
+| **Ops Monitor** | App and infra monitoring, alerting and support tickets | `Node.js` `PM2` `Telegram` |
 | [**Invoice API**](https://github.com/NPKpadala/invoice-api) | OCR-driven invoice extraction service | `FastAPI` `Tesseract` `OpenCV` |
 | [**Job Alert Bot**](https://github.com/NPKpadala/job-alert-bot) | AI-assisted job alerts behind a rate-limited API | `FastAPI` `Gemini` |
 | [**system_disk**](https://github.com/NPKpadala/system_disk) | Disk and I/O monitor that flags unused filesystems | `Python` `GitHub Actions` |
