@@ -15,7 +15,7 @@
 </div>
 
 <!-- START_SECTION:banner -->
-> 🟢 **All 2 monitored services operational** · probed `2026-10-26 13:20 UTC`
+> 🟢 **All 2 monitored services operational** · probed `2026-10-26 19:24 UTC`
 <!-- END_SECTION:banner -->
 
 ## About
@@ -71,13 +71,13 @@ Currently going deeper on distributed systems, multi-tenant architecture, perfor
 ## Live telemetry
 
 <!-- START_SECTION:telemetry -->
-<!-- probe:2026-10-26T13:20:09Z|Portfolio Website=up,PDFWala=up -->
-> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-10-26 13:20 UTC`
+<!-- probe:2026-10-26T19:24:09Z|Portfolio Website=up,PDFWala=up -->
+> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-10-26 19:24 UTC`
 
 | Service | Endpoint | Health | Latency |
 |:---|:---|:---|:---|
-| **Portfolio Website** | `npkpadala.com` | 🟢 `OPERATIONAL` `200` | `1972 ms` |
-| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `1593 ms` |
+| **Portfolio Website** | `npkpadala.com` | 🟢 `OPERATIONAL` `200` | `1463 ms` |
+| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `1578 ms` |
 
 <sub>Two attempts before anything is called unreachable, and a run where every target fails is read as a broken prober, not a simultaneous outage.</sub>
 <!-- END_SECTION:telemetry -->
@@ -109,7 +109,7 @@ Currently going deeper on distributed systems, multi-tenant architecture, perfor
   22d ago  create  opsforge-database… branch main
   22d ago  create  opsforge-azure-co… branch main
 ```
-<sub>Synced 2026-10-26 13:20 UTC · refreshed every 6h by GitHub Actions.</sub>
+<sub>Synced 2026-10-26 19:24 UTC · refreshed every 6h by GitHub Actions.</sub>
 <!-- END_SECTION:activity -->
 
 <!-- Optional: add a WAKATIME_API_KEY repo secret and this fills with last-7-day language stats. -->
