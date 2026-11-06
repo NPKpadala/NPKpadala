@@ -15,7 +15,7 @@
 </div>
 
 <!-- START_SECTION:banner -->
-> 🟢 **All 2 monitored services operational** · probed `2026-11-06 09:29 UTC`
+> 🟢 **All 2 monitored services operational** · probed `2026-11-06 17:32 UTC`
 <!-- END_SECTION:banner -->
 
 ## About
@@ -71,13 +71,13 @@ Currently going deeper on distributed systems, multi-tenant architecture, perfor
 ## Live telemetry
 
 <!-- START_SECTION:telemetry -->
-<!-- probe:2026-11-06T09:29:36Z|Portfolio Website=up,PDFWala=up -->
-> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-11-06 09:29 UTC`
+<!-- probe:2026-11-06T17:32:41Z|Portfolio Website=up,PDFWala=up -->
+> Probed from a GitHub Actions runner · **2/2 operational** · last check `2026-11-06 17:32 UTC`
 
 | Service | Endpoint | Health | Latency |
 |:---|:---|:---|:---|
-| **Portfolio Website** | `npkpadala.com` | 🟢 `OPERATIONAL` `200` | `1330 ms` |
-| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `1273 ms` |
+| **Portfolio Website** | `npkpadala.com` | 🟢 `OPERATIONAL` `200` | `1490 ms` |
+| **PDFWala** | `pdf.npkpadala.com/` | 🟢 `OPERATIONAL` `200` | `1470 ms` |
 
 <sub>Two attempts before anything is called unreachable, and a run where every target fails is read as a broken prober, not a simultaneous outage.</sub>
 <!-- END_SECTION:telemetry -->
